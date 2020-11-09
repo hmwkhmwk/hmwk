@@ -2,6 +2,8 @@
 
 As part of the monday.com Apps Marketplace challenge, we've created "hmwk", an app that lets your child scan their homework and "turn it in" to their teacher, right from their phone! Because hmwk integrates with monday.com, teachers can use the monday.com platform to receive homeworks in a central location and keep track of each student's development and learning.
 
+![hmwk logo](./public/hmwk_logo_v1.png)
+
 ## Dev guide
 
 ### Install NodeJS from scratch on Mac OS X
