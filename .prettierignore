@@ -1,0 +1,5 @@
+node_modules/
+secrets.js
+.env
+.eslintrc.js
+monday.com.README.md
