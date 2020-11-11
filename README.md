@@ -36,3 +36,6 @@ command -v nvm
 nvm install 14.15.0
 nvm use 14.15.0
 ```
+
+In the project root directory (`hmwk/`), the `.nvmrc` file is set to `14.15.0`, so you can also just run `nvm use` to switch to that version. Note that you don't have to do this every single time.
+
