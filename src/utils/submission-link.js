@@ -1,5 +1,5 @@
 // import Sha1 from './sha1.js'
-const Sha1 = require("./sha1.js");
+const { Sha1 } = require("./sha1.js");
 
 function generateSubmissionLink(host, endPoint) {
   // E.g.
