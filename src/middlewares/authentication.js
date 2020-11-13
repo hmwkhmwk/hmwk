@@ -2,6 +2,12 @@ const jwt = require("jsonwebtoken");
 const SHARED_SECRET = process.env.MONDAY_SIGNING_SECRET;
 
 async function authenticationMiddleware(req, res, next) {
+  // No auth when in dev mode.
+  if (process.env.NODE_ENV === "dev") {
+    next();
+    return;
+  }
+
   try {
     let { authorization } = req.headers;
     if (!authorization && req.query) {
