@@ -8,16 +8,27 @@ class HmwkService {
             const mondayClient = initMondayClient();
             mondayClient.setToken(token);
 
-            const query = `query{
-                boards(ids: $studentsBoardId){
-                    items
+            const query = `query {
+                boards(ids: $studentsBoardId) {
+                  items {
+                    name
+              
+                    column_values {
+                      value
+                      text
+                    }
+                  }
                 }
-            }`
+              }`
 
             const variables = { studentsBoardId };
 
             const response = await mondayClient.api(query, { variables });
-            return response.data.items;
+            const student_info = response.data.boards.items
+            return student_info //array of json
+            //student name: student_info[i].name 
+            //student email: student_info[i].column_values.text
+
         } catch (err) {
             console.log(err);
         }
