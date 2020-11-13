@@ -1,19 +1,22 @@
 const express = require("express");
-const router = express.Router();
 
-const reseedController = require("../controllers/reseed-controller").default;
+const dbmodule = require("../db");
+const ReseedController = require("../controllers/reseed-controller");
 const authenticationMiddleware = require("../middlewares/authentication")
   .authenticationMiddleware;
 
-router.post(
-  "/reseed/subscribe",
-  authenticationMiddleware,
-  reseedController.subscribe
-);
-router.post(
-  "/reseed/unsubscribe",
-  authenticationMiddleware,
-  reseedController.unsubscribe
-);
+function routes(dbFileName, humanReadable = true) {
+  const db = dbmodule.newDB(dbFileName, humanReadable);
+  const ctrl = new ReseedController(db);
 
-module.exports = router;
+  const router = express.Router();
+  router.post("/reseed/subscribe", authenticationMiddleware, ctrl.subscribe);
+  router.post(
+    "/reseed/unsubscribe",
+    authenticationMiddleware,
+    ctrl.unsubscribe
+  );
+  return router;
+}
+
+module.exports = routes;
