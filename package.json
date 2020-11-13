@@ -2,6 +2,8 @@
   "name": "monday-integration-quickstart-app",
   "version": "0.0.1",
   "license": "UNLICENSED",
+  "description": "Collect homework assignments and keep track of them in one place",
+  "main": "src/app.js",
   "scripts": {
     "start": "npm run stop && concurrently \"npm run server\" \"npm run expose\"",
     "server": "node ./src/app.js",
