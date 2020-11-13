@@ -1,4 +1,4 @@
-const initMondayClient = require('monday-sdk-js');
+const initMondayClient = require("monday-sdk-js");
 
 class MondayService {
   static async getColumnValue(token, itemId, columnId) {

@@ -1,14 +1,13 @@
 class TransformationService {
   static async transformText(value, type) {
     switch (type) {
-      case 'TO_UPPER_CASE':
+      case "TO_UPPER_CASE":
         return value.toUpperCase();
-      case 'TO_LOWER_CASE':
+      case "TO_LOWER_CASE":
         return value.toLowerCase();
       default:
         return value.toUpperCase();
     }
-
   }
 
   static async changeColumnValue(token, boardId, itemId, columnId, value) {

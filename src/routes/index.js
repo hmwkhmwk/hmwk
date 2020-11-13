@@ -1,13 +1,13 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const transformationRoutes = require('./transformation');
+const transformationRoutes = require("./transformation");
 
 router.use(transformationRoutes);
-router.get('/', function(req, res) {
+router.get("/", function (req, res) {
   res.json(getHealth());
 });
 
-router.get('/health', function(req, res) {
+router.get("/health", function (req, res) {
   res.json(getHealth());
   res.end();
 });
@@ -15,7 +15,7 @@ router.get('/health', function(req, res) {
 function getHealth() {
   return {
     ok: true,
-    message: 'Healthy'
+    message: "Healthy",
   };
 }
 
