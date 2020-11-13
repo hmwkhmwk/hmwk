@@ -24,4 +24,3 @@ async function handleStatusChange(req, res) {
 module.exports = {
     handleStatusChange
   };
-  
