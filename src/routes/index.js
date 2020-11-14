@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const transformationRoutes = require("./transformation");
-const reseedRoutes = require("./reseed")("reseed-db");
+const reseedRoutes = require("./reseed")();
 
 router.use(transformationRoutes);
 router.use(reseedRoutes);

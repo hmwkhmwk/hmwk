@@ -1,5 +1,4 @@
-// Common JsonDB path prefix.
-const PATH_PREFIX = "/subscriptions";
+const { newDB, RESEED_PATH_PREFIX } = require("../db");
 
 /**
  * The ReseedController class contains the HTTP handlers for reseed subscriptions.
@@ -7,7 +6,10 @@ const PATH_PREFIX = "/subscriptions";
  * (subscriptionId, webhookUrl, hmwkAssignmentsId, studentsId, hmwkCompletionTrackingId) values.
  */
 class ReseedController {
-  constructor(db) {
+  constructor(db = null) {
+    if (db === null) {
+      db = newDB();
+    }
     this._db = db;
     this.subscribe = this.subscribe.bind(this);
     this.unsubscribe = this.unsubscribe.bind(this);
@@ -31,7 +33,7 @@ class ReseedController {
         studentsId,
         hmwkCompletionTrackingId,
       };
-      this._db.push(`${PATH_PREFIX}/${subscriptionId}`, value);
+      this._db.push(`${RESEED_PATH_PREFIX}/${subscriptionId}`, value);
 
       // webhookId is treated as the same as subscriptionId.
       return res.status(200).send({ webhookId: subscriptionId });
@@ -45,7 +47,7 @@ class ReseedController {
     try {
       // webhookId is treated as the same as subscriptionId.
       const { webhookId } = req.body.payload;
-      this._db.delete(`${PATH_PREFIX}/${webhookId}`);
+      this._db.delete(`${RESEED_PATH_PREFIX}/${webhookId}`);
     } catch (err) {
       next(err);
     }

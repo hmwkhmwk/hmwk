@@ -5,6 +5,7 @@
   "scripts": {
     "expose": "ngrok http 8302",
     "get-public-address": "addr=$(curl http://localhost:4040/api/tunnels | jq -r '.tunnels | .[] | select( .name == \"command_line\" ) | .public_url') && echo \"\nYour public URL is $addr\"",
+    "reseed": "node src/scripts/reseed.js",
     "start": "npm run stop && concurrently \"npm run server\" \"npm run expose\" \"sleep 2 && npm run get-public-address\"",
     "server": "node ./src/app.js",
     "server-dev": "NODE_ENV=dev node ./src/app.js",
@@ -13,6 +14,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "axios": "^0.21.0",
     "body-parser": "^1.19.0",
     "dotenv": "^5.0.1",
     "express": "^4.17.1",
