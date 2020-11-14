@@ -1,8 +1,11 @@
 const express = require("express");
 const router = express.Router();
+
 const transformationRoutes = require("./transformation");
+const reseedRoutes = require("./reseed")("reseed-db");
 
 router.use(transformationRoutes);
+router.use(reseedRoutes);
 router.get("/", function (req, res) {
   res.json(getHealth());
 });
