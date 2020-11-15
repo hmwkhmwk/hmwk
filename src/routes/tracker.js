@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const trackerController = require("../controllers/tracker-controller").default;
+const trackerController = require("../controllers/tracker-controller");
 const authenticationMiddleware = require("../middlewares/authentication")
   .authenticationMiddleware;
 
