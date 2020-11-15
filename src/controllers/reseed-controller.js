@@ -1,13 +1,15 @@
-// Common JsonDB path prefix.
-const PATH_PREFIX = "/subscriptions";
+const { newDB, RESEED_PATH_PREFIX } = require("../db");
 
 /**
  * The ReseedController class contains the HTTP handlers for reseed subscriptions.
  * It interacts with JsonDB, a flat-file database, to persist
- * (subscriptionId, webhookUrl) values.
+ * (subscriptionId, webhookUrl, hmwkAssignmentsId, studentsId, hmwkCompletionTrackingId) values.
  */
 class ReseedController {
-  constructor(db) {
+  constructor(db = null) {
+    if (db === null) {
+      db = newDB();
+    }
     this._db = db;
     this.subscribe = this.subscribe.bind(this);
     this.unsubscribe = this.unsubscribe.bind(this);
@@ -15,25 +17,37 @@ class ReseedController {
 
   // monday.com custom trigger subscribe handler
   async subscribe(req, res, next) {
-    const { subscriptionId, webhookUrl } = req.body.payload;
-
     try {
-      this._db.push(`${PATH_PREFIX}/${subscriptionId}`, webhookUrl);
+      // Unmarshal.
+      const { subscriptionId, webhookUrl, inputFields } = req.body.payload;
+      const {
+        hmwkAssignmentsId,
+        studentsId,
+        hmwkCompletionTrackingId,
+      } = inputFields;
+
+      // Persist.
+      const value = {
+        webhookUrl,
+        hmwkAssignmentsId,
+        studentsId,
+        hmwkCompletionTrackingId,
+      };
+      this._db.push(`${RESEED_PATH_PREFIX}/${subscriptionId}`, value);
+
+      // webhookId is treated as the same as subscriptionId.
+      return res.status(200).send({ webhookId: subscriptionId });
     } catch (err) {
       next(err);
     }
-
-    // webhookId is treated as the same as subscriptionId.
-    return res.status(200).send({ webhookId: subscriptionId });
   }
 
   // monday.com custom trigger unsubscribe handler
   async unsubscribe(req, res) {
-    // webhookId is treated as the same as subscriptionId.
-    const { webhookId } = req.body.payload;
-
     try {
-      this._db.delete(`${PATH_PREFIX}/${webhookId}`);
+      // webhookId is treated as the same as subscriptionId.
+      const { webhookId } = req.body.payload;
+      this._db.delete(`${RESEED_PATH_PREFIX}/${webhookId}`);
     } catch (err) {
       next(err);
     }

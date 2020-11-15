@@ -1,13 +1,11 @@
 const express = require("express");
 
-const dbmodule = require("../db");
 const ReseedController = require("../controllers/reseed-controller");
 const authenticationMiddleware = require("../middlewares/authentication")
   .authenticationMiddleware;
 
-function routes(dbFileName, humanReadable = true) {
-  const db = dbmodule.newDB(dbFileName, humanReadable);
-  const ctrl = new ReseedController(db);
+function routes() {
+  const ctrl = new ReseedController();
 
   const router = express.Router();
   router.post("/reseed/subscribe", authenticationMiddleware, ctrl.subscribe);
