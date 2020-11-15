@@ -2,6 +2,8 @@
   "name": "monday-integration-quickstart-app",
   "version": "0.0.1",
   "license": "UNLICENSED",
+  "description": "Collect homework assignments and keep track of them in one place",
+  "main": "src/app.js",
   "scripts": {
     "expose": "ngrok http 8302",
     "get-public-address": "addr=$(curl http://localhost:4040/api/tunnels | jq -r '.tunnels | .[] | select( .name == \"command_line\" ) | .public_url') && echo \"\nYour public URL is $addr\"",
