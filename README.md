@@ -39,3 +39,28 @@ nvm use 14.15.0
 
 In the project root directory (`hmwk/`), the `.nvmrc` file is set to `14.15.0`, so you can also just run `nvm use` to switch to that version. Note that you don't have to do this every single time.
 
+### Personal workspace playground
+
+When developing, it is useful to have your own playground workspace.
+
+1. In one tab, run `npm run expose`. In another tab, run `npm run server-dev`. Copy the `https://` ngrok URL. You will need this for step 2.
+
+2. Create a "Reset Boards (`YOU`)" recipe. For the subscription URL, put in your ngrok url suffixed with `/reseed/subscribe`, e.g. `https://7cc0c3259e14.ngrok.io/reseed/subscribe`. Do the same for `/reseed/unsubscribe`.
+
+3. Create your own workspace, e.g. named "`<YOU>` Playground".
+
+4. Click "Add" --> "New from template" --> "See More Templates".
+
+5. Search for and use "hmwk for teachers".
+
+6. Click "Integrate" --> "+ Add new integration".
+
+7. Search for and use "Reset Boards (`<YOU>`)". Fill out the recipe sentence completely.
+
+That's it! Now if you want to reseed your boards, just run:
+
+```bash
+npm run reseed
+```
+
+Note: Don't reseed too often in a short amount of time. [monday.com rate limits you](https://monday.com/developers/v2#rate-limits-section).

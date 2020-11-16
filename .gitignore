@@ -3,4 +3,4 @@ node_modules/
 secrets.js
 .env
 .eslintcache
-reseed-db.json
+hmwk-db.json
