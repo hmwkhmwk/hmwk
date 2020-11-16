@@ -27,6 +27,7 @@
     "morgan": "^1.10.0",
     "mysql2": "^2.1.0",
     "node-json-db": "^1.1.0",
+    "path": "^0.12.7",
     "prop-types": "^15.7.2",
     "proxyquire": "^2.0.1",
     "querystring": "^0.2.0",
