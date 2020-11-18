@@ -21,7 +21,7 @@ const Footer = () => (
         <AiOutlineLinkedin size={25} /> Victor Chen | Software Engineer
       </a>
       <a href="https://www.linkedin.com/in/kay-chen-9a9679165/">
-        <AiOutlineLinkedin size={25} /> Kay Chen | UX-Ui Designer
+        <AiOutlineLinkedin size={25} /> Kay Chen | UX-UI Designer
       </a>
       <a href="https://www.linkedin.com/in/cecilia-yu-chung-chang/">
         <AiOutlineLinkedin size={25} /> Cecilia Yu Chung Chang | Jr. Software
