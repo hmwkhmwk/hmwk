@@ -20,20 +20,46 @@ status = "Not Submitted"
 */
 
 async function track(req, res) {
-  console.log("request", req);
-  // Yunice's code (originally in hmwk-service.js)
+  console.log(
+    `Incoming track request with request.body=${JSON.stringify(req.body)}`
+  );
 
-  // const { payload } = req.body;
-  // const { inboundFieldValues } = payload;
-  // const { studentsBoardId } = inboundFieldValues;
+  // unmarshal
+  const { payload } = req.body;
+  const { inboundFieldValues } = payload;
+  const {
+    studentsBoardId,
+    hmwkCompletionTrackingBoardId,
+    hmwkAssignmentsBoardId,
+    itemId,
+  } = inboundFieldValues;
+  console.log(
+    `
+    Unmarshalled request: studentsBoardId=${studentsBoardId},
+    hmwkCompletionTrackingBoardId=${hmwkCompletionTrackingBoardId},
+    hmwkAssignmentsBoardId=${hmwkAssignmentsBoardId}
+    itemId=${itemId}
+    `
+  );
 
-  // const students = await HmwkService.getAllStudents(studentsBoardId);
-  // if (!students) {
-  //   console.log("You have no students on the board")
-  //   return res.status(200).send({});
-  // }
+  const studentInfo = await _getStudentInfo(studentsBoardId);
+  console.log(
+    `Fetched all students from student Board: ${JSON.stringify(studentInfo)}`
+  );
+
+  // TODO: generate unique link for each student
 
   return res.status(200).send({});
+}
+
+async function _getStudentInfo(studentsBoardId) {
+  const studentInfo = await HmwkService.getAllStudents(studentsBoardId);
+  if (!studentInfo || studentInfo.length == 0) {
+    console.log("You have no students on the board");
+    return res.status(200).send({});
+  }
+
+  return studentInfo;
 }
 
 module.exports = {

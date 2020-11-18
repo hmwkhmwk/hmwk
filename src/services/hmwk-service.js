@@ -6,7 +6,7 @@ class HmwkService {
   static async getAllStudents(studentsBoardId) {
     const query = `
       query {
-        boards(ids: $studentsBoardId) {
+        boards(ids: ${studentsBoardId}) {
           items {
             name
             column_values {
@@ -17,10 +17,10 @@ class HmwkService {
         }
       }`;
 
-    const variables = { studentsBoardId };
+    const response = await monday.api(query);
 
-    const response = await monday.api(query, { variables });
-    const studentInfo = response.data.boards.items;
+    // Since we are only querying 1 single students Board), index 0 at boards array
+    const studentInfo = response.data.boards[0].items;
     return studentInfo; //array of json
     //student name: student_info[i].name
     //student email: student_info[i].column_values.text
@@ -28,16 +28,21 @@ class HmwkService {
 
   static async createNewHmwk(hmwkCompletionTrackingBoardId, hmwkName) {
     //create a group at HmwkCompletionTrackingBoard with hmwkName
-    const query = `
+    const mutation = `
       mutation {
-        create_group (board_id: $hmwkCompletionTrackingBoardId, group_name: $hmwkName) {
+        create_group (board_id: ${hmwkCompletionTrackingBoardId}, group_name: ${hmwkName}) {
           id
         }
       }`;
 
-    const variables = { hmwkCompletionTrackingBoardId, hmwkName };
+    const resp = await monday.api(mutation);
+    if (resp.errors) {
+      console.log(`Received errors while creating new hmwk: ${resp.errors}`);
+      throw resp.errors;
+    }
 
-    await monday.api(query, { variables });
+    const groupId = resp.data.create_group.id;
+    console.log(`Created group ${groupId} under hmwkCompletionTrackingBoard`);
   }
 
   static async populateHmwkCompletionTrackingBoard(
