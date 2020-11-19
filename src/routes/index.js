@@ -8,9 +8,6 @@ const trackerRoutes = require("./tracker");
 router.use(transformationRoutes);
 
 router.use(reseedRoutes);
-router.get("/", function (req, res) {
-  res.json(getHealth());
-});
 
 router.use(trackerRoutes);
 
