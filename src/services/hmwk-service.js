@@ -26,6 +26,34 @@ class HmwkService {
     //student email: student_info[i].column_values.text
   }
 
+  static async getHmwkDetail(hmwkAssignmentsBoardId) {
+    const query = `
+      query {
+        items(ids: ${hmwkAssignmentsBoardId}) {
+          name
+          column_values {
+            text
+          }
+        }
+      }`;
+
+    const response = await monday.api(query);
+
+    // Since we are only querying 1 item, index 0 at items array
+    const hmwkName = response.data.items[0].name;
+
+    // Get the homework due date which is at the last column
+    const itemValues = response.data.items[0].column_values;
+    const dueDateText = itemValues[itemValues.length - 1].text; // Date column needs to be a string in a YYYY-MM-DD format
+
+    const hmwkDetails = {
+      hmwkName: hmwkName,
+      dueDate: dueDateText,
+    };
+
+    return hmwkDetails;
+  }
+
   static async createNewHmwk(hmwkCompletionTrackingBoardId, hmwkName) {
     //create a group at HmwkCompletionTrackingBoard with hmwkName
     const mutation = `

@@ -5,6 +5,7 @@
  */
 
 const HmwkService = require("../services/hmwk-service");
+const { generateSubmissionLink } = require("../utils/submission-link");
 
 /* this function tracks when an assignment's status changes from
 "Not Ready" to "Send to Students" which will call .getAllStudents() 
@@ -45,6 +46,14 @@ async function track(req, res) {
   const studentInfo = await _getStudentInfo(studentsBoardId);
   console.log(
     `Fetched all students from student Board: ${JSON.stringify(studentInfo)}`
+  );
+
+  const hmwkDetails = await HmwkService.getHmwkDetail(itemId);
+  console.log(`Fetched hmwkDetails: ${JSON.stringify(hmwkDetails)}`);
+
+  await HmwkService.createNewHmwk(
+    hmwkCompletionTrackingBoardId,
+    hmwkDetails.hmwkName
   );
 
   // TODO: generate unique link for each student
