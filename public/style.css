@@ -1,5 +1,14 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 body {
   font-family: sans-serif;
+  background-color: fff8d6;
+  font-family: "Karla", sans-serif;
+  width: 100%;
+  margin: 0;
 }
 
 a {
@@ -18,4 +27,80 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+/* CSS for Header component */
+
+.header {
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  background-color: #ffc300;
+  border: 3px solid #ff7b00;
+  border-radius: 10px;
+  height: 100px;
+  padding: 10px 20px 10px 20px;
+}
+
+/* .header ::before {
+  content: "\a";
+  display: block;
+  width: 10px;
+  height: 10px;
+  color: red;
+}
+.header ::after {
+  content: "\a";
+  display: block;
+  width: 10px;
+  height: 10px;
+  color: blue;
+} */
+
+.header h1 {
+  margin: 0;
+  text-shadow: 2px 2px 6px #ffff9e;
+  text-align: center;
+}
+
+.header h3 {
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  text-align: center;
+}
+
+.header a {
+  color: #ff7b00;
+}
+
+.header a:hover {
+  color: #ffff9e;
+}
+
+/* CSS for Footer component */
+#footer {
+  display: flex;
+  justify-content: space-between;
+  background-color: #ffc300;
+  border: 3px solid #ff7b00;
+  border-radius: 10px;
+  height: 250px;
+  padding: 40px 40px 0px 40px;
+  margin-top: 40px;
+  color: #ff7b00;
+}
+
+#footer a {
+  color: #c36f09;
+}
+#footer a:hover {
+  color: #ffff9e;
+}
+
+.footerHalf {
+  display: flex;
+  flex-direction: column;
+  width: 70vh;
+  margin-right: 60px;
+  text-align: justify;
 }

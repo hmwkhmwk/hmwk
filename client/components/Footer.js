@@ -5,18 +5,20 @@ import { AiOutlineLinkedin } from "react-icons/ai";
 const Footer = () => (
   <div id="footer">
     <div className="footerHalf">
-      <div className="bigText">hmwk</div>
-      <h3>
-        Easy homework photo-submission for students, easy homework tracking for
-        teachers.
-      </h3>
+      <h2>hmwk &copy; November 2020</h2>
       <div>
         <a href="https://github.com/hmwkhmwk/hmwk">
           <GoMarkGithub color="##e36397" size={32} /> GitHub
         </a>
       </div>
+      <h4>
+        Easy homework photo-submission for students, easy homework tracking for
+        teachers using the <a href="https://monday.com/">monday.com</a>{" "}
+        platform.
+      </h4>
     </div>
     <div className="footerHalf">
+      <p></p>
       <a href="https://www.linkedin.com/in/victor-lam-chen/">
         <AiOutlineLinkedin size={25} /> Victor Chen | Software Engineer
       </a>
@@ -33,7 +35,6 @@ const Footer = () => (
       <a href="https://www.linkedin.com/in/fishxy2/">
         <AiOutlineLinkedin size={25} /> Yunice Xiao | Jr. Software Engineer
       </a>
-      <h2>&copy; November 2020</h2>
     </div>
   </div>
 );
