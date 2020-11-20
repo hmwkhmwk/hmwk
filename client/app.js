@@ -1,12 +1,13 @@
 import React from "react";
 
-import { Header, Footer } from "./components";
+import { Header, Body, Footer } from "./components";
 // import Routes from "./routes";
 
 const App = () => {
   return (
     <div>
       <Header />
+      <Body />
       <Footer />
       {/* <Routes /> */}
     </div>
