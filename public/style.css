@@ -6,6 +6,7 @@ html {
 body {
   font-family: sans-serif;
   background-color: fff8d6;
+  text-align: center;
   font-family: "Karla", sans-serif;
   width: 100%;
   margin: 0;
@@ -29,6 +30,26 @@ form div {
   display: inline-block;
 }
 
+/* buttons  */
+
+.submitButton {
+  background-color: #9a4ef1;
+  display: inline-block;
+  padding: 0.3em;
+  margin: 0.1em;
+  border: 0.16em solid rgba(255, 255, 255, 0);
+  border-radius: 50%;
+  box-sizing: border-box;
+  /* text-decoration: none; */
+  /* font-family: "Roboto", sans-serif; */
+  font-weight: bold;
+  text-align: center;
+  font-size: 80px;
+  color: #ffffff;
+  text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+  /* transition: all 0.2s; */
+}
+
 /* CSS for Header component */
 
 .header {
@@ -42,6 +63,10 @@ form div {
   padding: 10px 20px 10px 20px;
 }
 
+.headerLogo {
+  display: flex;
+  align-items: flex-start;
+}
 /* .header ::before {
   content: "\a";
   display: block;
@@ -67,6 +92,7 @@ form div {
   text-transform: uppercase;
   letter-spacing: 4px;
   text-align: center;
+  color: #9a4ef1;
 }
 
 .header a {
@@ -79,13 +105,17 @@ form div {
 
 /* CSS for Footer component */
 #footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   justify-content: space-between;
   background-color: #ffc300;
   border: 3px solid #ff7b00;
   border-radius: 10px;
-  height: 250px;
-  padding: 40px 40px 0px 40px;
+  height: 200px;
+  padding: 20px 40px 20px 60px;
   margin-top: 40px;
   color: #ff7b00;
 }
@@ -100,7 +130,15 @@ form div {
 .footerHalf {
   display: flex;
   flex-direction: column;
-  width: 70vh;
+  width: 50vh;
   margin-right: 60px;
   text-align: justify;
+}
+
+.footerHalf2 {
+  display: flex;
+  flex-direction: column;
+  width: 50vh;
+  margin-left: 60px;
+  text-align: left;
 }

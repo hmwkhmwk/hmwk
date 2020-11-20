@@ -17,23 +17,23 @@ const Footer = () => (
         platform.
       </h4>
     </div>
-    <div className="footerHalf">
+    <div className="footerHalf2">
       <p></p>
-      <a href="https://www.linkedin.com/in/victor-lam-chen/">
-        <AiOutlineLinkedin size={25} /> Victor Chen | Software Engineer
-      </a>
-      <a href="https://www.linkedin.com/in/kay-chen-9a9679165/">
-        <AiOutlineLinkedin size={25} /> Kay Chen | UX-UI Designer
+      <a href="https://www.linkedin.com/in/fishxy2/">
+        <AiOutlineLinkedin size={25} /> Yunice Xiao | Jr. Software Engineer
       </a>
       <a href="https://www.linkedin.com/in/cecilia-yu-chung-chang/">
         <AiOutlineLinkedin size={25} /> Cecilia Yu Chung Chang | Jr. Software
         Engineer
       </a>
+      <a href="https://www.linkedin.com/in/kay-chen-9a9679165/">
+        <AiOutlineLinkedin size={25} /> Kay Chen | UX-UI Designer
+      </a>
       <a href="https://www.linkedin.com/in/rt-lin/">
         <AiOutlineLinkedin size={25} /> RT Lin | Software Engineer
       </a>
-      <a href="https://www.linkedin.com/in/fishxy2/">
-        <AiOutlineLinkedin size={25} /> Yunice Xiao | Jr. Software Engineer
+      <a href="https://www.linkedin.com/in/victor-lam-chen/">
+        <AiOutlineLinkedin size={25} /> Victor Chen | Software Engineer
       </a>
     </div>
   </div>
