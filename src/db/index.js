@@ -5,6 +5,8 @@ const { Config } = require("node-json-db/dist/lib/JsonDBConfig");
 const DB_FILENAME = "hmwk-db";
 
 const RESEED_PATH_PREFIX = "/reseed";
+const TRACKER_PATH_PREFIX = "/tracker";
+const SUBMIT_PATH_PREFIX = "/submit";
 
 /**
  * Create a new hmwk JsonDB.
