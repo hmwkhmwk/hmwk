@@ -11,15 +11,8 @@ const SUBMIT_PATH_PREFIX = "/submit";
 
 // Implements concurrent DB supporting thread-safe read/write/delete operations
 class ConcurrentDB {
-  constructor() {
-    this._jsonDB = new JsonDB(
-      new Config(
-        DB_FILENAME,
-        true /* humanReadable */,
-        true /* saveOnPush */,
-        "/" /* separator */
-      )
-    );
+  constructor(jsonDB) {
+    this._jsonDB = jsonDB;
 
     // for synchronization
     this._lock = new AsyncLock();
@@ -49,11 +42,21 @@ class ConcurrentDB {
 }
 
 /**
- * Create a new hmwk JsonDB that supports thread-safe
- * "read"/"write"/"delete" operations
+ * Create a new hmwk JsonDB.
+ * @param {string} fileName database filename. Defaults to DB_FILENAME.
+ * @param {boolean} saveOnPush save to the database after every operation.
+ * @returns {JsonDB}
  */
-function newDB() {
-  return new ConcurrentDB();
+function newDB(filename = DB_FILENAME, saveOnPush = true) {
+  const jsonDB = new JsonDB(
+    new Config(
+      filename,
+      true /* humanReadable */,
+      saveOnPush,
+      "/" /* separator */
+    )
+  );
+  return new ConcurrentDB(jsonDB);
 }
 
 module.exports = {
