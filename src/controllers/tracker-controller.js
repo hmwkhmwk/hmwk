@@ -48,7 +48,7 @@ async function track(req, res) {
   );
 
   // Check if run already.
-  const trackerPath = `${TRACKER_PATH_PREFIX}/${hmwkAssignmentsBoardId}/${studentsBoardId}/${hmwkCompletionTrackingBoardId}/${itemId}`;
+  const trackerPath = `${TRACKER_PATH_PREFIX}/${hmwkAssignmentsBoardId},${studentsBoardId},${hmwkCompletionTrackingBoardId},${itemId}`;
   if (db.exists(trackerPath) && db.getData(trackerPath).done) {
     return res.status(200).send({});
   }
