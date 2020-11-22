@@ -1,8 +1,12 @@
 const HmwkService = require("../services/hmwk-service");
+const { generateSubmissionLink } = require("../utils/submission-link");
 const { newDB, TRACKER_PATH_PREFIX, SUBMIT_PATH_PREFIX } = require("../db");
 
 // TODO(lrt98802, YuniceXiao): Utilize db to read/write to /tracker and /submit.
 const db = newDB();
+
+const HOST = "https://www.hmwk.herokuapp.com";
+const END_POINT = "submission";
 
 /* this function tracks when an assignment's status changes from
 "Not Ready" to "Send to Students" which will call .getAllStudents() 
@@ -45,7 +49,26 @@ async function track(req, res) {
     `Fetched all students from student Board: ${JSON.stringify(studentInfo)}`
   );
 
-  // TODO: generate unique link for each student
+  const hmwkDetails = await HmwkService.getHmwkDetail(itemId);
+  console.log(`Fetched hmwkDetails: ${JSON.stringify(hmwkDetails)}`);
+
+  let assignments = [];
+  for (let student of studentInfo) {
+    // Preparing data for populating hmwkCompletionTrackingBoard
+    let data = {
+      name: student.name,
+      date4: hmwkDetails.dueDate,
+      status: "Not Submitted",
+      text9: generateSubmissionLink(HOST, END_POINT), // TODO: integrate with email service to distribute the link
+    };
+    assignments.push(data);
+  }
+
+  await HmwkService.seedHmwkCompletionTracking(
+    hmwkCompletionTrackingBoardId,
+    hmwkDetails.hmwkName,
+    assignments
+  );
 
   return res.status(200).send({});
 }
