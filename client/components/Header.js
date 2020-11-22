@@ -10,6 +10,7 @@ const Header = () => (
           <Link to="/home">Ms. Stacy's Math Class</Link>
         </h1>
       </div>
+      {/* write a if-else condition here to display specific header if the path is /allHmwks */}
       <div className="headerSubtitle">
         <h3>6. Multiplication Homework</h3>
       </div>

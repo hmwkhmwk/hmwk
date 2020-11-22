@@ -1,6 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import AllHmwks from "./AllHmwks";
 
 const Home = () => (
   <div id="home">
@@ -13,9 +11,6 @@ const Home = () => (
     <div className="submitButton">
       <p>Upload</p>
     </div>
-    <Link to="/allHmwks" component={AllHmwks}>
-      All Hmwks
-    </Link>
   </div>
 );
 
