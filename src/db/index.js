@@ -48,6 +48,15 @@ class ConcurrentDB {
     });
     return ret;
   }
+
+  getData(dataPath) {
+    let ret;
+    this._lock.acquire(this.LOCK_KEY, () => {
+      console.log(`Acquired lockfor getData where dataPath=${dataPath}`);
+      ret = this._jsonDB.getData(dataPath);
+    });
+    return ret;
+  }
 }
 
 /**
