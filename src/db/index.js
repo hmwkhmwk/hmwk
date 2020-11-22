@@ -1,5 +1,6 @@
 const { JsonDB } = require("node-json-db");
 const { Config } = require("node-json-db/dist/lib/JsonDBConfig");
+const AsyncLock = require("async-lock");
 
 // Default hmwk-db.json filename.
 const DB_FILENAME = "hmwk-db";
@@ -25,7 +26,39 @@ function newDB(filename = DB_FILENAME, saveOnPush = true) {
   );
 }
 
+// Implements synchronous read/write/delete operations
+class hmwkDB {
+  constructor(filename = DB_FILENAME, saveOnPush = true) {
+    this._jsonDB = new JsonDB(
+      new Config(
+        filename,
+        true /* humanReadable */,
+        saveOnPush,
+        "/" /* separator */
+      )
+    );
+
+    // for synchronization
+    this._lock = new AsyncLock();
+    this.LOCK_KEY = "LOCK_KEY";
+  }
+
+  // Methods
+  push(dataPath, value) {
+    this._lock.acquire(this.LOCK_KEY, () => {
+      this._jsonDB.push(dataPath, value);
+    });
+  }
+
+  delete(dataPath) {
+    this._lock.acquire(this.LOCK_KEY, () => {
+      this._jsonDB.delete(dataPath);
+    });
+  }
+}
+
 module.exports = {
+  hmwkDB,
   newDB,
   RESEED_PATH_PREFIX,
 };
