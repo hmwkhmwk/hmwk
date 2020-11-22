@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import HeaderAllHmwks from "./HeaderAllHmwks";
 
 function AllHmwks() {
@@ -11,7 +10,6 @@ function AllHmwks() {
 
   return (
     <div>
-      <HeaderAllHmwks />
       <div>
         <h3>Hi Tommy!</h3>
       </div>

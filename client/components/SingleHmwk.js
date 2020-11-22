@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Header from "./Header";
 
 function SingleHmwk() {
   const seeAllHmwk = () => {
@@ -9,7 +8,6 @@ function SingleHmwk() {
 
   return (
     <div>
-      <Header />
       <div>
         <h3>Your homework grade: B</h3>
       </div>
