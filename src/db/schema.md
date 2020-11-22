@@ -41,5 +41,4 @@ The entire unique primary key for a homework assignment is (`hmwkAssignmentsId`,
 
 | <div style="width:24ch">Key</div> | <div style="width:24ch">Values</div> | Description                                                                    |
 | --------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------ |
-| `/submit/${hash}`                 | `hmwkCompletionTrackingId`           | `hmwk_completion_tracking` board ID.                                           |
-| &#10240;                          | `itemId`                             | Item ID of a (student, homework) pair in the `hmwk_completion_tracking` board. |
+| `/submit/${hash}`                 | `itemId`                             | Item ID of a (student, homework) pair in the `hmwk_completion_tracking` board. |

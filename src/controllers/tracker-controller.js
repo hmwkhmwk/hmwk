@@ -1,5 +1,8 @@
 const HmwkService = require("../services/hmwk-service");
-const { generateSubmissionLink } = require("../utils/submission-link");
+const {
+  generateSubmissionLink,
+  parseToken,
+} = require("../utils/submission-link");
 const { newDB, TRACKER_PATH_PREFIX, SUBMIT_PATH_PREFIX } = require("../db");
 
 // TODO(lrt98802, YuniceXiao): Utilize db to read/write to /tracker and /submit.
@@ -44,6 +47,13 @@ async function track(req, res) {
     `
   );
 
+  // Check if run already.
+  const trackerPath = `${TRACKER_PATH_PREFIX}/${hmwkAssignmentsBoardId}/${studentsBoardId}/${hmwkCompletionTrackingBoardId}/${itemId}`;
+  if (db.exists(trackerPath) && db.getData(trackerPath).done) {
+    return res.status(200).send({});
+  }
+  db.push(trackerPath, { done: false });
+
   const studentInfo = await _getStudentInfo(studentsBoardId);
   console.log(
     `Fetched all students from student Board: ${JSON.stringify(studentInfo)}`
@@ -65,11 +75,21 @@ async function track(req, res) {
     assignments.push(data);
   }
 
-  await HmwkService.seedHmwkCompletionTracking(
+  const resps = await HmwkService.seedHmwkCompletionTracking(
     hmwkCompletionTrackingBoardId,
     hmwkDetails.hmwkName,
     assignments
   );
+
+  // Store unique-link to itemId mapping in /submit.
+  for (let i = 0; i < resps.length; i++) {
+    const itemId = resps[i].data.create_item.id;
+    const uniqueToken = parseToken(assignments[i].text9);
+    db.push(`${SUBMIT_PATH_PREFIX}/${uniqueToken}`, { itemId });
+  }
+
+  // Store a successful run in /tracker.
+  db.push(trackerPath, { done: true });
 
   return res.status(200).send({});
 }

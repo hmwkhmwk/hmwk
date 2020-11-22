@@ -114,7 +114,7 @@ class HmwkService {
         date4: { date: assignment.date4 },
       };
     };
-    await HmwkService._seedBoard(
+    return await HmwkService._seedBoard(
       hmwkAssignmentsId,
       assignmentsGroup,
       assignments,
@@ -132,7 +132,7 @@ class HmwkService {
         },
       };
     };
-    await HmwkService._seedBoard(studentsId, studentsGroup, students, f);
+    return await HmwkService._seedBoard(studentsId, studentsGroup, students, f);
   }
 
   // TODO(victor): Add file upload support.
@@ -153,7 +153,7 @@ class HmwkService {
         }, // Student Email
       };
     };
-    await HmwkService._seedBoard(
+    return await HmwkService._seedBoard(
       hmwkCompletionTrackingId,
       assignmentsTrackerGroup,
       assignmentsTracker,
@@ -177,6 +177,7 @@ class HmwkService {
     console.log(`Created group "${groupName}"`);
 
     // Create items under the newly created group.
+    let resps = [];
     for (let item of items) {
       // https://monday.com/developers/v2#column-values-section
       // NOTE: Although the API docs say only board_id is required,
@@ -200,7 +201,9 @@ class HmwkService {
         throw resp.errors;
       }
       console.log(`Created item "${item.name}"`);
+      resps.push(resp);
     }
+    return resps;
   }
 
   // Upload a PDF to monday.com

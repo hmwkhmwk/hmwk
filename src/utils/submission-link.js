@@ -19,6 +19,11 @@ function generateMaskedRandomString() {
   return Sha1.hash(randomString);
 }
 
+function parseToken(url) {
+  return new URLSearchParams(url.split("?")[1]).get("token");
+}
+
 module.exports = {
   generateSubmissionLink,
+  parseToken,
 };

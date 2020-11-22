@@ -27,5 +27,7 @@ function newDB(filename = DB_FILENAME, saveOnPush = true) {
 
 module.exports = {
   newDB,
+  TRACKER_PATH_PREFIX,
+  SUBMIT_PATH_PREFIX,
   RESEED_PATH_PREFIX,
 };
