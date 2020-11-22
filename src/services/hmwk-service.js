@@ -58,14 +58,13 @@ class HmwkService {
     //create a group at HmwkCompletionTrackingBoard with hmwkName
     const mutation = `
       mutation {
-        create_group (board_id: ${hmwkCompletionTrackingBoardId}, group_name: ${hmwkName}) {
+        create_group (board_id: ${hmwkCompletionTrackingBoardId}, group_name: "${hmwkName}") {
           id
         }
       }`;
 
     const resp = await monday.api(mutation);
     if (resp.errors) {
-      console.log(`Received errors while creating new hmwk: ${resp.errors}`);
       throw resp.errors;
     }
 
