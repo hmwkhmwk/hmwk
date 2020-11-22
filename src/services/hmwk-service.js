@@ -1,5 +1,7 @@
-const API_TOKEN = process.env.API_TOKEN;
+const axios = require("axios").default;
 const monday = require("monday-sdk-js")();
+
+const API_TOKEN = process.env.API_TOKEN;
 monday.setToken(API_TOKEN);
 
 class HmwkService {
@@ -199,6 +201,45 @@ class HmwkService {
       }
       console.log(`Created item "${item.name}"`);
     }
+  }
+
+  // Upload a PDF to monday.com
+  // Reference: https://gist.github.com/yuhgto/edb5d96e088599c2a6ea44860df9117b
+  static async uploadPDF(pdfName, content, itemId) {
+    // Hard-coded column ID for homework file column.
+    const columnId = "files";
+    const query = `mutation ($file: File!) { add_file_to_column (item_id: ${itemId}, column_id: "${columnId}", file: $file) { id } }`;
+    const boundary = "xxxxxxxxxx";
+    const headers = {
+      Authorization: API_TOKEN,
+      "Content-Type": `multipart/form-data; boundary=${boundary}`,
+    };
+
+    // Construct query part.
+    let data = "";
+    data += `--${boundary}\r\n`;
+    data += 'Content-Disposition: form-data; name="query"; \r\n';
+    data += "Content-Type:application/json\r\n\r\n";
+    data += `\r\n${query}\r\n`;
+
+    // Construct file part.
+    data += `--${boundary}\r\n`;
+    data += `Content-Disposition: form-data; name="variables[file]"; filename="${pdfName}"\r\n`;
+    data += `Content-Type:application/pdf\r\n\r\n`;
+
+    const payload = Buffer.concat([
+      Buffer.from(data, "utf8"),
+      Buffer.from(content, "binary"),
+      Buffer.from(`\r\n--${boundary}--\r\n`, "utf8"),
+    ]);
+
+    // Send request.
+    return await axios({
+      method: "post",
+      url: "https://api.monday.com/v2/file",
+      headers: headers,
+      data: payload,
+    });
   }
 }
 
