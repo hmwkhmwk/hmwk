@@ -1,7 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import AllHmwks from "./AllHmwks";
 
-const Body = () => (
-  <div id="body">
+const Home = () => (
+  <div id="home">
     <div className="greeting">
       <h2> Hi Tommy! </h2>
     </div>
@@ -11,11 +13,10 @@ const Body = () => (
     <div className="submitButton">
       <p>Upload</p>
     </div>
+    <Link to="/allHmwks" component={AllHmwks}>
+      All Hmwks
+    </Link>
   </div>
 );
 
-export default Body;
-
-// Body component will be renamed to Home.js
-// Another component called Body.js will be the router of
-// what renders on the body section at each point of the user journey.
+export default Home;

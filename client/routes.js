@@ -1,4 +1,36 @@
-// import React, { Component } from "react";
+import React, { useEffect } from "react";
+import { withRouter, Route, Switch } from "react-router-dom";
+import { Home, Submit, Review, SingleHmwk, AllHmwks } from "./components";
+import { useSelector, useDispatch } from "react-redux";
+
+/**
+ * COMPONENT
+ */
+
+const Routes = () => {
+  // const isLoggedIn = useSelector(state => !!state.user.id)
+  // const dispatch = useDispatch()
+  // const loadInitialData = () => {
+  //   dispatch(me())
+  // }
+
+  // useEffect(() => {
+  //   loadInitialData()
+  // })
+
+  return (
+    <Switch>
+      <Route path="/allHmwks" component={AllHmwks} />
+      <Route path="/singleHmwk" component={SingleHmwk} />
+      <Route exact path="/review" component={Review} />
+      <Route path="/submit" component={Submit} />
+      <Route component={Home} />
+    </Switch>
+  );
+};
+
+export default withRouter(Routes);
+
 // import { connect } from "react-redux";
 // import { withRouter, Route, Switch } from "react-router-dom";
 // import PropTypes from "prop-types";
