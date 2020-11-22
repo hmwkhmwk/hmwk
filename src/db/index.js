@@ -39,6 +39,15 @@ class ConcurrentDB {
       this._jsonDB.delete(dataPath);
     });
   }
+
+  exists(dataPath) {
+    let ret = false;
+    this._lock.acquire(this.LOCK_KEY, () => {
+      console.log(`Acquired lockfor exists where dataPath=${dataPath}`);
+      ret = this._jsonDB.exists(dataPath);
+    });
+    return ret;
+  }
 }
 
 /**
