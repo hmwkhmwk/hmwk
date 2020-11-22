@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Header, Body, Footer } from "./components";
+import { Header, Body, Submit, Review, Footer } from "./components";
 // import Routes from "./routes";
 
 const App = () => {
@@ -8,6 +8,8 @@ const App = () => {
     <div>
       <Header />
       <Body />
+      {/* <Submit /> */}
+      {/* <Review /> */}
       <Footer />
       {/* <Routes /> */}
     </div>
