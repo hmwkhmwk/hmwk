@@ -5,3 +5,4 @@ secrets.js
 .eslintcache
 hmwk-db.json
 public/bundle.js
+tmp/
