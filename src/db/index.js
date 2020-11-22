@@ -9,31 +9,14 @@ const RESEED_PATH_PREFIX = "/reseed";
 const TRACKER_PATH_PREFIX = "/tracker";
 const SUBMIT_PATH_PREFIX = "/submit";
 
-/**
- * Create a new hmwk JsonDB.
- * @param {string} fileName database filename. Defaults to DB_FILENAME.
- * @param {boolean} saveOnPush save to the database after every operation.
- * @returns {JsonDB}
- */
-function newDB(filename = DB_FILENAME, saveOnPush = true) {
-  return new JsonDB(
-    new Config(
-      filename,
-      true /* humanReadable */,
-      saveOnPush,
-      "/" /* separator */
-    )
-  );
-}
-
-// Implements synchronous read/write/delete operations
-class hmwkDB {
-  constructor(filename = DB_FILENAME, saveOnPush = true) {
+// Implements concurrent DB supporting thread-safe read/write/delete operations
+class ConcurrentDB {
+  constructor() {
     this._jsonDB = new JsonDB(
       new Config(
-        filename,
+        DB_FILENAME,
         true /* humanReadable */,
-        saveOnPush,
+        true /* saveOnPush */,
         "/" /* separator */
       )
     );
@@ -46,19 +29,34 @@ class hmwkDB {
   // Methods
   push(dataPath, value) {
     this._lock.acquire(this.LOCK_KEY, () => {
+      console.log(
+        `Acquired lockfor push where dataPath=${dataPath}, value=${JSON.stringify(
+          value
+        )}`
+      );
       this._jsonDB.push(dataPath, value);
     });
   }
 
   delete(dataPath) {
     this._lock.acquire(this.LOCK_KEY, () => {
+      console.log(
+        `Acquired lock=${this.LOCK_KEY} for delete where dataPath=${dataPath}`
+      );
       this._jsonDB.delete(dataPath);
     });
   }
 }
 
+/**
+ * Create a new hmwk JsonDB that supports thread-safe
+ * "read"/"write"/"delete" operations
+ */
+function newDB() {
+  return new ConcurrentDB();
+}
+
 module.exports = {
-  hmwkDB,
   newDB,
   RESEED_PATH_PREFIX,
 };
