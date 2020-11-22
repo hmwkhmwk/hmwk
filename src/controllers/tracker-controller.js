@@ -83,9 +83,12 @@ async function track(req, res) {
 
   // Store unique-link to itemId mapping in /submit.
   for (let i = 0; i < resps.length; i++) {
-    const itemId = resps[i].data.create_item.id;
+    const hmwkCompletionTrackingItemId = resps[i].data.create_item.id;
     const uniqueToken = parseToken(assignments[i].text9);
-    db.push(`${SUBMIT_PATH_PREFIX}/${uniqueToken}`, { itemId });
+    db.push(`${SUBMIT_PATH_PREFIX}/${uniqueToken}`, {
+      hmwkCompletionTrackingItemId: hmwkCompletionTrackingItemId,
+      hmwkAssignmentsItemId: itemId,
+    });
   }
 
   // Store a successful run in /tracker.
