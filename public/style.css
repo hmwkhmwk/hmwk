@@ -1,15 +1,28 @@
+/* 
+COLOR Palette
+#f93822 red
+#70d9e5 blue
+#ffb81c orange 
+#8e9aaf gray
+
+FONT Family:
+Sofia Pro
+*/
+
 html {
   position: relative;
   min-height: 100%;
 }
 
 body {
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
   background-color: fff8d6;
   text-align: center;
-  font-family: "Karla", sans-serif;
+  font-family: "sofia-pro", sans-serif;
   width: 100%;
   margin: 0;
+  color: #8e9aaf;
+  background-color: #70d9e5;
 }
 
 a {
@@ -33,7 +46,7 @@ form div {
 /* buttons  */
 
 .submitButton {
-  background-color: #9a4ef1;
+  background-color: #f93822;
   display: inline-block;
   padding: 0.3em;
   margin: 0.1em;
@@ -41,10 +54,9 @@ form div {
   border-radius: 50%;
   box-sizing: border-box;
   /* text-decoration: none; */
-  /* font-family: "Roboto", sans-serif; */
   font-weight: bold;
   text-align: center;
-  font-size: 80px;
+  font-size: 70px;
   color: #ffffff;
   text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
   /* transition: all 0.2s; */
@@ -53,19 +65,40 @@ form div {
 /* CSS for Header component */
 
 .header {
-  /* display: flex;
+  display: flex;
   justify-content: center;
-  align-items: center; */
-  background-color: #ffc300;
-  border: 3px solid #ff7b00;
+  align-items: space-between;
+  background-color: #fff;
+  /* border: 3px solid #ff7b00; */
   border-radius: 10px;
-  height: 100px;
+  height: 150px;
   padding: 10px 20px 10px 20px;
 }
 
-.headerLogo {
+/* .headerLogo {
   display: flex;
   align-items: flex-start;
+} */
+
+.logo {
+  display: flex;
+  align-self: flex-start;
+  align-items: center;
+  justify-content: flex-start;
+  height: 150px;
+  width: 150px;
+}
+
+.headerTitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.headerSubtitle {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }
 /* .header ::before {
   content: "\a";
@@ -84,7 +117,7 @@ form div {
 
 .header h1 {
   margin: 0;
-  text-shadow: 2px 2px 6px #ffff9e;
+  text-shadow: 2px 2px 6px #fff;
   text-align: center;
 }
 
@@ -92,11 +125,11 @@ form div {
   text-transform: uppercase;
   letter-spacing: 4px;
   text-align: center;
-  color: #9a4ef1;
+  color: #f93822;
 }
 
 .header a {
-  color: #ff7b00;
+  color: #f93822;
 }
 
 .header a:hover {
@@ -111,20 +144,21 @@ form div {
   bottom: 0;
   display: flex;
   justify-content: space-between;
-  background-color: #ffc300;
-  border: 3px solid #ff7b00;
+  background-color: #fff;
+  /* border: 3px solid #ff7b00; */
   border-radius: 10px;
   height: 200px;
   padding: 20px 40px 20px 60px;
   margin-top: 40px;
-  color: #ff7b00;
+  color: #8e9aaf;
 }
 
 #footer a {
-  color: #c36f09;
+  color: #8e9aaf;
 }
+
 #footer a:hover {
-  color: #ffff9e;
+  color: #f93822;
 }
 
 .footerHalf {
