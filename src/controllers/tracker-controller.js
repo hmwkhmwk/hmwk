@@ -56,10 +56,11 @@ async function track(req, res) {
   for (let student of studentInfo) {
     // Preparing data for populating hmwkCompletionTrackingBoard
     let data = {
-      name: student.name,
-      date4: hmwkDetails.dueDate,
-      status: "Not Submitted",
-      text9: generateSubmissionLink(HOST, END_POINT), // TODO: integrate with email service to distribute the link
+      name: student.name, // Student Name
+      date4: hmwkDetails.dueDate, // Due Date
+      status: "Not Submitted", // Submission Status
+      text9: generateSubmissionLink(HOST, END_POINT), // Unique Link
+      email9: student.column_values[0].text, // Student Email
     };
     assignments.push(data);
   }
