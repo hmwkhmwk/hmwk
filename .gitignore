@@ -4,3 +4,4 @@ secrets.js
 .env
 .eslintcache
 hmwk-db.json
+public/bundle.js

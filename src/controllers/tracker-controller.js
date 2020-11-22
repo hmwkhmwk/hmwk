@@ -1,11 +1,9 @@
-/**
- * monday.com track currently just console.logs the request
- * @param {Request} req
- * @param {Response} res
- */
-
 const HmwkService = require("../services/hmwk-service");
 const { generateSubmissionLink } = require("../utils/submission-link");
+const { newDB, TRACKER_PATH_PREFIX, SUBMIT_PATH_PREFIX } = require("../db");
+
+// TODO(lrt98802, YuniceXiao): Utilize db to read/write to /tracker and /submit.
+const db = newDB();
 
 /* this function tracks when an assignment's status changes from
 "Not Ready" to "Send to Students" which will call .getAllStudents() 
