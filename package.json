@@ -17,6 +17,9 @@
     "stop": "kill-port 8302 && kill-port 4049 && kill-port 4040",
     "test": "jest"
   },
+  "nodemonConfig": {
+    "ignore": ["hmwk-db.json"]
+  },
   "dependencies": {
     "axios": "^0.21.0",
     "body-parser": "^1.19.0",
