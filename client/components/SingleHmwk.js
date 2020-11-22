@@ -2,10 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function SingleHmwk() {
-  const seeAllHmwk = () => {
-    console.log("redirecting to AllHmwks Page");
-  };
-
   return (
     <div>
       <div>
@@ -16,9 +12,9 @@ function SingleHmwk() {
         Good job Tommy! Don't forget to add the minus sign to answers below 0
       </p>
       <div>
-        <button type="button" onClick={() => seeAllHmwk()}>
-          See All
-        </button>
+        <Link to="/allHmwks">
+          <button>See All</button>
+        </Link>
       </div>
     </div>
   );
