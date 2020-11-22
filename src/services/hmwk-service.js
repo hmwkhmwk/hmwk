@@ -54,58 +54,6 @@ class HmwkService {
     return hmwkDetails;
   }
 
-  static async createNewHmwk(hmwkCompletionTrackingBoardId, hmwkName) {
-    //create a group at HmwkCompletionTrackingBoard with hmwkName
-    const mutation = `
-      mutation {
-        create_group (board_id: ${hmwkCompletionTrackingBoardId}, group_name: "${hmwkName}") {
-          id
-        }
-      }`;
-
-    const resp = await monday.api(mutation);
-    if (resp.errors) {
-      throw resp.errors;
-    }
-
-    const groupId = resp.data.create_group.id;
-    console.log(`Created group ${groupId} under hmwkCompletionTrackingBoard`);
-  }
-
-  static async populateHmwkCompletionTrackingBoard(
-    hmwkCompletionTrackingBoardId,
-    studentInfo,
-    hmwkName,
-    dueDate
-  ) {
-    //create a group at HmwkCompletionTrackingBoard with hmwkName
-    HmwkService.createNewHmwk(hmwkCompletionTrackingBoardId, hmwkName);
-
-    //create items under the group and fill up student name, due date and status
-    const column_values = JSON.stringify({
-      date4: dueDate,
-      status: "Not Submitted",
-    });
-
-    for (let i = 0; i < studentInfo.length; i++) {
-      studentName = studentInfo[i].name;
-      const query = `
-        mutation {
-          create_item(board_id: $hmwkCompletionTrackingBoardId, group_id: $hmwkName, item_name: $studentName, column_values: $column_values) {
-            id
-          }
-        }`;
-
-      const variables = {
-        hmwkCompletionTrackingBoardId,
-        hmwkName,
-        studentInfo,
-        column_values,
-      };
-      await monday.api(query, { variables });
-    }
-  }
-
   static async deleteAllHmwkAssignmentsItems(hmwkAssignmentsId) {
     await HmwkService._deleteAllItems(hmwkAssignmentsId);
   }
