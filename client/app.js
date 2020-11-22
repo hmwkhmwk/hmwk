@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Header, Body, Footer } from "./components";
+import { Header, Body, Submit, Review, Footer } from "./components";
 import SingleHmwk from "./components/SingleHmwk";
 import AllHmwks from "./components/AllHmwks";
 
@@ -11,6 +11,8 @@ const App = () => {
     <div>
       <Header />
       <Body />
+      {/* <Submit /> */}
+      {/* <Review /> */}
       <Footer />
       {/* <Routes /> */}
     </div>

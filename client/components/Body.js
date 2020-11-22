@@ -15,3 +15,7 @@ const Body = () => (
 );
 
 export default Body;
+
+// Body component will be renamed to Home.js
+// Another component called Body.js will be the router of
+// what renders on the body section at each point of the user journey.

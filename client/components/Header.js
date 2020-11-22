@@ -1,5 +1,4 @@
 import React from "react";
-// import logo from "";
 import { Link } from "react-router-dom";
 
 const Header = () => (
