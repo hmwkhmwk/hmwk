@@ -10,7 +10,6 @@ class HmwkService {
           items {
             name
             column_values {
-              value
               text
             }
           }
@@ -142,10 +141,14 @@ class HmwkService {
   ) {
     const f = (at) => {
       return {
-        date4: { date: at.date4 },
-        status: { label: at.status },
-        text9: at.text9,
-        text: at.text,
+        date4: { date: at.date4 }, // Due Date
+        status: { label: at.status }, // Submission Status
+        text9: at.text9, // Unique Submission Link
+        text: at.text, // Grade
+        email9: {
+          email: at.email9,
+          text: at.email9,
+        }, // Student Email
       };
     };
     await HmwkService._seedBoard(
