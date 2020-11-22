@@ -37,6 +37,14 @@ nvm install 14.15.0
 nvm use 14.15.0
 ```
 
+### Other dependencies
+
+```bash
+# Sorry, you need Mac OS X ><
+# This step should be solved via Heroku buildpack on Heroku.
+brew install imagemagick
+```
+
 In the project root directory (`hmwk/`), the `.nvmrc` file is set to `14.15.0`, so you can also just run `nvm use` to switch to that version. Note that you don't have to do this every single time.
 
 ### Personal workspace playground
