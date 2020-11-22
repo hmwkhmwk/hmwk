@@ -2,7 +2,12 @@
 
 require("dotenv").config();
 const axios = require("axios").default;
-const { newDB, RESEED_PATH_PREFIX } = require("../db");
+const {
+  newDB,
+  RESEED_PATH_PREFIX,
+  TRACKER_PATH_PREFIX,
+  SUBMIT_PATH_PREFIX,
+} = require("../db");
 const { DataError } = require("node-json-db/dist/lib/Errors");
 const HmwkService = require("../services/hmwk-service");
 const seed = require("./seed");
@@ -88,12 +93,20 @@ async function runReseed() {
     }
     console.log("");
   }
+  resetDB(db);
   console.log("Done reseeding.");
   console.log(
     'Do not run "npm run reseed" too many times in a short amount of time. ' +
       "You can get rate-limited by monday.com. " +
       "See https://monday.com/developers/v2#rate-limits-section for more info."
   );
+}
+
+function resetDB(db) {
+  db.delete(TRACKER_PATH_PREFIX);
+  console.log(`Deleted ${TRACKER_PATH_PREFIX} in database`);
+  db.delete(SUBMIT_PATH_PREFIX);
+  console.log(`Deleted ${SUBMIT_PATH_PREFIX} in database`);
 }
 
 // Execute the `reseed` function, IF we ran this module directly (`node seed`).

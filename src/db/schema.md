@@ -18,12 +18,12 @@ Using `/tracker` as example, the **Key** can be:
 
 The data in the `/reseed` path contains subscription metadata for the reseeding monday.com recipe and `npm run reseed` script.
 
-<div style="width:24ch">Key</div> | <div style="width:24ch">Values</div> | Description
---- | ------ | -----------
-`/reseed/${subscriptionId}`</div> | `webookUrl` | Subscription webhook URL (unused).
-&#10240; | `hmwkAssignmentsId` | `hmwk_assignments` board ID for reseeding.
-&#10240; | `studentsId` | `students` board ID for reseeding.
-&#10240; | `hmwkCompletionTrackingId` | `hmwk_completion_tracking` board ID for reseeding.
+| <div style="width:24ch">Key</div> | <div style="width:24ch">Values</div> | Description                                        |
+| --------------------------------- | ------------------------------------ | -------------------------------------------------- |
+| `/reseed/${subscriptionId}`</div> | `webookUrl`                          | Subscription webhook URL (unused).                 |
+| &#10240;                          | `hmwkAssignmentsId`                  | `hmwk_assignments` board ID for reseeding.         |
+| &#10240;                          | `studentsId`                         | `students` board ID for reseeding.                 |
+| &#10240;                          | `hmwkCompletionTrackingId`           | `hmwk_completion_tracking` board ID for reseeding. |
 
 ## `/tracker`
 
@@ -31,15 +31,14 @@ The data in the `/tracker` path contains information about whether our hmwk serv
 
 The entire unique primary key for a homework assignment is (`hmwkAssignmentsId`, `studentsId`, `hmwkCompletionTrackingId`, `itemId`), i.e. this key uniquely identifies a specific homework assignment that our hmwk service is supposed to "track".
 
-<div style="width:24ch">Key</div> | <div style="width:24ch">Values</div> | Description
---- | ------ | -----------
-<div style="width:24ch">`/tracker/${hmwkAssignmentsId}/${studentsId}/${hmwkCompletionTrackingId}/${itemId}`</div> | `done` | A boolean (true/false) of whether or not `hmwk_completion_tracking` was successfully populated. In the beginning of a `/tracker/track` request for a new homework, this value is set to `false`. After successful population of the monday.com board, this is set to `true`. Future requests to the `/tracker/track` path will see that this value is `true` and thus won't trigger a redundant re-population.
+| <div style="width:24ch">Key</div>                                                                                 | <div style="width:24ch">Values</div> | Description                                                                                                                                                                                                                                                                                                                                                                                                    |
+| ----------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <div style="width:24ch">`/tracker/${hmwkAssignmentsId}/${studentsId}/${hmwkCompletionTrackingId}/${itemId}`</div> | `done`                               | A boolean (true/false) of whether or not `hmwk_completion_tracking` was successfully populated. In the beginning of a `/tracker/track` request for a new homework, this value is set to `false`. After successful population of the monday.com board, this is set to `true`. Future requests to the `/tracker/track` path will see that this value is `true` and thus won't trigger a redundant re-population. |
 
 ## `/submit`
 
 `/submit` maps the homework assignment `hash` back to the (student, homework) pair. When generating a unique link (hash) for a (student, homework) pair, remember to insert the following key-value pair:
 
-<div style="width:24ch">Key</div> | <div style="width:24ch">Values</div> | Description
---- | ------ | -----------
-`/submit/${hash}` | `hmwkCompletionTrackingId` | `hmwk_completion_tracking` board ID.
-&#10240; | `itemId` | Item ID of a (student, homework) pair in the `hmwk_completion_tracking` board.
+| <div style="width:24ch">Key</div> | <div style="width:24ch">Values</div> | Description                                                                    |
+| --------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------ |
+| `/submit/${hash}`                 | `itemId`                             | Item ID of a (student, homework) pair in the `hmwk_completion_tracking` board. |
