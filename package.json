@@ -18,7 +18,9 @@
     "test": "jest"
   },
   "nodemonConfig": {
-    "ignore": ["hmwk-db.json"]
+    "ignore": [
+      "hmwk-db.json"
+    ]
   },
   "dependencies": {
     "async-lock": "^1.2.4",
