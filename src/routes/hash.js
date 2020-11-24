@@ -3,8 +3,6 @@ const { newDB } = require("../db");
 const db = newDB();
 const HmwkService = require("../services/hmwk-service");
 
-// document.location.href
-
 router.get("/api/hash/:token", async (req, res, next) => {
   try {
     const data = await db.getData(`/submit/${req.params.token}`);
@@ -12,6 +10,7 @@ router.get("/api/hash/:token", async (req, res, next) => {
     const hmwkTrackingData = await HmwkService.getHmwkTrackingData(
       hmwkCompletionTrackingItemId
     );
+    //KEEP THIS CONSOLE LOG IN ORDER TO REFORMAT THE hmwkTrackingData later on
     console.log("hmwkTrackingData", hmwkTrackingData);
     res.json(hmwkTrackingData);
   } catch (error) {
@@ -20,5 +19,3 @@ router.get("/api/hash/:token", async (req, res, next) => {
 });
 
 module.exports = router;
-
-// Link https://www.hmwk.herokuapp.com/submission?token=f2c57a06a7fe968f59c76bf8fb68177b7f433200

@@ -26,7 +26,6 @@ const setHmwkTrackingData = (hash) => ({
 export const getHmwkTrackingDataThunk = (token) => async (dispatch) => {
   try {
     const { data } = await axios.get(`/api/hash/${token}`);
-    console.log("data", data);
     dispatch(setHmwkTrackingData(data));
   } catch (err) {
     console.error(err);

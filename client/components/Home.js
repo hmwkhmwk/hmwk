@@ -3,14 +3,10 @@ import React, { useEffect, useState } from "react";
 import { getHmwkTrackingDataThunk } from "../store/hash";
 
 function Home() {
-  console.log(window.location.href);
   const url = window.location.href;
-  console.log("url", url);
   const token = new URLSearchParams(url.split("?")[1].split("#")[0]).get(
     "token"
   );
-  console.log("token", token);
-
   const hash = useSelector((state) => state.hash);
   const dispatch = useDispatch();
   const loadHmwkTrackingData = () => {
