@@ -7,7 +7,7 @@ const App = () => {
     <div>
       <Header />
       <Routes />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { withRouter, Route, Switch } from "react-router-dom";
-import { Home, Submit, Review, SingleHmwk, AllHmwks } from "./components";
+import { Home, Upload, Review, SingleHmwk, AllHmwks } from "./components";
 import { useSelector, useDispatch } from "react-redux";
 
 /**
@@ -23,7 +23,7 @@ const Routes = () => {
       <Route path="/allHmwks" component={AllHmwks} />
       <Route path="/singleHmwk" component={SingleHmwk} />
       <Route exact path="/review" component={Review} />
-      <Route path="/submit" component={Submit} />
+      <Route path="/upload" component={Upload} />
       <Route component={Home} />
     </Switch>
   );

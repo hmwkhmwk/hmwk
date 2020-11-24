@@ -20,7 +20,7 @@ The data in the `/reseed` path contains subscription metadata for the reseeding 
 
 | <div style="width:24ch">Key</div> | <div style="width:24ch">Values</div> | Description                                        |
 | --------------------------------- | ------------------------------------ | -------------------------------------------------- |
-| `/reseed/${subscriptionId}`</div> | `webookUrl`                          | Subscription webhook URL (unused).                 |
+| `/reseed/${subscriptionId}`</div> | `webhookUrl`                         | Subscription webhook URL (unused).                 |
 | &#10240;                          | `hmwkAssignmentsId`                  | `hmwk_assignments` board ID for reseeding.         |
 | &#10240;                          | `studentsId`                         | `students` board ID for reseeding.                 |
 | &#10240;                          | `hmwkCompletionTrackingId`           | `hmwk_completion_tracking` board ID for reseeding. |
