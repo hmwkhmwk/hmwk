@@ -27,6 +27,26 @@ class HmwkService {
     //student email: student_info[i].column_values.text
   }
 
+  // Grab STUDENT NAME for our student API
+  static async getHmwkTrackingData(hmwkCompletionTrackingItemId) {
+    const query = `
+    query {
+      items(ids: ${hmwkCompletionTrackingItemId}) {
+        name
+        column_values{
+          id
+          text
+        }
+      }
+    }
+    `;
+
+    const response = await monday.api(query);
+    const hmwkTrackingData = response.data.items[0];
+
+    return hmwkTrackingData;
+  }
+
   static async getHmwkDetail(hmwkAssignmentsBoardId) {
     const query = `
       query {
