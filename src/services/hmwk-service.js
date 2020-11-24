@@ -28,19 +28,23 @@ class HmwkService {
   }
 
   // Grab STUDENT NAME for our student API
-  static async getStudent(hmwkCompletionTrackingItemId) {
+  static async getHmwkTrackingData(hmwkCompletionTrackingItemId) {
     const query = `
     query {
       items(ids: ${hmwkCompletionTrackingItemId}) {
         name
+        column_values{
+          id
+          text
+        }
       }
     }
     `;
 
     const response = await monday.api(query);
+    const hmwkTrackingData = response.data.items[0];
 
-    const studentName = response.data.items[0].name;
-    return studentName;
+    return hmwkTrackingData;
   }
 
   static async getHmwkDetail(hmwkAssignmentsBoardId) {

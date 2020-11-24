@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 function Upload() {
+  const url = window.location.href;
+  const token = new URLSearchParams(url.split("?")[1]).get("token");
+  const student = useSelector((state) => state.student);
+  const dispatch = useDispatch();
+  const loadStudent = (id) => {
+    dispatch(getStudent(id));
+  };
+
+  useEffect(
+    (token) => {
+      loadStudent(token);
+    },
+    [token]
+  );
+
   return (
     <div id="body">
       <div className="imagePreview">

@@ -10,10 +10,11 @@ import { HashRouter } from "react-router-dom";
 // import './socket'
 
 ReactDOM.render(
-  // <Provider store={store}>
-  <HashRouter history={history}>
-    <App />
-  </HashRouter>,
-  // </Provider>,
+  <Provider store={store}>
+    <HashRouter history={history}>
+      <App />
+    </HashRouter>
+    ,
+  </Provider>,
   document.getElementById("app")
 );

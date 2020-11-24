@@ -14,7 +14,7 @@ app.use(morgan("dev")); // by default use "dev" format.
 // parse various different custom JSON types as JSON
 app.use(bodyParser.json());
 app.use(routes);
-
+// app.use("api", require("./api"))
 // static file-serving middleware
 app.use(express.static(path.join(__dirname, "..", "public")));
 
