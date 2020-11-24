@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Submit() {
+function Upload() {
   return (
     <div id="body">
       <div className="imagePreview">
@@ -12,7 +12,7 @@ function Submit() {
         />
       </div>
       <div>
-        <Link to="/submit">
+        <Link to="/upload">
           <button type="button" className="addMore">
             Add More
           </button>
@@ -29,4 +29,4 @@ function Submit() {
   );
 }
 
-export default Submit;
+export default Upload;
