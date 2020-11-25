@@ -33,6 +33,9 @@ class HmwkService {
     query {
       items(ids: ${hmwkCompletionTrackingItemId}) {
         name
+        group {
+          title
+        }
         column_values{
           id
           text
@@ -42,9 +45,91 @@ class HmwkService {
     `;
 
     const response = await monday.api(query);
-    const hmwkTrackingData = response.data.items[0];
+    const item = response.data.items[0];
 
-    return hmwkTrackingData;
+    // item looks like this:
+    //
+    // {
+    //   "name": "Ronald Weasley",
+    //   "group": {
+    //     "title": "Enchantments I"
+    //   },
+    //   "column_values": [
+    //     {
+    //       "id": "date4",
+    //       "title": "Due date",
+    //       "text": "2020-11-16"
+    //     },
+    //     {
+    //       "id": "status",
+    //       "title": "Status",
+    //       "text": "Not Submitted"
+    //     },
+    //     {
+    //       "id": "text9",
+    //       "title": "UniqueLink",
+    //       "text": "https://www.hmwk.herokuapp.com/submission?token=04df901109872f9a40a02711d709be1f355655f2"
+    //     },
+    //     {
+    //       "id": "files",
+    //       "title": "hmwk file",
+    //       "text": ""
+    //     },
+    //     {
+    //       "id": "text",
+    //       "title": "Grade",
+    //       "text": ""
+    //     },
+    //     {
+    //       "id": "email9",
+    //       "title": "Email",
+    //       "text": "hmwkapp@gmail.com"
+    //     }
+    //   ]
+    // }
+    //
+    // We want to convert to this:
+    //
+    // {
+    //   studentName: "Ronald Weasley",      // name
+    //   hmwkTitle: "Enchantments I"         // group.title
+    //   dueDate: "2020-11-16",              // date4
+    //   status: "Not Submitted",            // status
+    //   uniqueLink: "https://www.hmwk.herokuapp.com/submission?token=04df901109872f9a40a02711d709be1f355655f2",
+    //                                       // text9
+    //   file: "",                           // files
+    //   grade: "",                          // text
+    //   studentEmail: "hmwkapp@gmail.com",  // email9
+    // }
+    const data = {
+      studentName: item.name,
+      hmwkTitle: item.group.title,
+    };
+    for (let cv of item.column_values) {
+      switch (cv.id) {
+        case "date4":
+          data.dueDate = cv.text;
+          break;
+        case "status":
+          data.status = cv.text;
+          break;
+        case "text9":
+          data.uniqueLink = cv.text;
+          break;
+        case "files":
+          data.file = cv.text;
+          break;
+        case "text":
+          data.grade = cv.text;
+          break;
+        case "email9":
+          data.studentEmail = cv.text;
+          break;
+        default:
+          throw `Unrecognized column id "${cv.id}" in hmwk_completion_tracking board...`;
+      }
+    }
+    return data;
   }
 
   static async getHmwkDetail(hmwkAssignmentsBoardId) {
