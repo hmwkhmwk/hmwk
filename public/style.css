@@ -115,6 +115,12 @@ form div {
 .cornerButton {
   background: transparent;
   color: #000000;
+  border: 3px solid #000000;
+  border-radius: 50px;
+  padding: 0.8rem 2rem;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
 }
 /* CSS for Header component */
 
