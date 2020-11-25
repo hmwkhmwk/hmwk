@@ -1,9 +1,15 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function Review() {
+  const hash = useSelector((state) => state.hash);
+
   return (
     <div id="body">
+      <div className="headerSubtitle">
+        <h1>{hash.hmwkTitle}</h1>
+      </div>
       <div className="greeting">
         <img
           src="https://content.mycutegraphics.com/graphics/star/yellow-rounded-corner-star.png"
@@ -11,7 +17,7 @@ function Review() {
         />
       </div>
       <div className="prompt">
-        <h1> Well done Tommy! </h1>
+        <h1> Well done {hash.name}! </h1>
         <h3> You submitted your homework</h3>
       </div>
       <div className="imagePreview">
