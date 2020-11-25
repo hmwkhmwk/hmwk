@@ -74,7 +74,10 @@ function newDB(filename = DB_FILENAME, saveOnPush = true) {
       "/" /* separator */
     )
   );
-  return new ConcurrentDB(jsonDB);
+  // TODO(rt): Fix data race issue with ConcurrentDB
+  // (this._lock.acquire() returns a Promise)
+  // return new ConcurrentDB(jsonDB);
+  return jsonDB;
 }
 
 module.exports = {
