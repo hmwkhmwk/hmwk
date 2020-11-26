@@ -84,6 +84,11 @@ class HmwkService {
     //       "id": "email9",
     //       "title": "Email",
     //       "text": "hmwkapp@gmail.com"
+    //     },
+    //     {
+    //       "id": "text809",
+    //       "title": "Comment",
+    //       "text": "Well Done!"
     //     }
     //   ]
     // }
@@ -100,6 +105,7 @@ class HmwkService {
     //   file: "",                           // files
     //   grade: "",                          // text
     //   studentEmail: "hmwkapp@gmail.com",  // email9
+    //   comment: "Well done!",              // text809
     // }
     const data = {
       studentName: item.name,
@@ -124,6 +130,9 @@ class HmwkService {
           break;
         case "email9":
           data.studentEmail = cv.text;
+          break;
+        case "text809":
+          data.comment = cv.text;
           break;
         default:
           throw `Unrecognized column id "${cv.id}" in hmwk_completion_tracking board...`;

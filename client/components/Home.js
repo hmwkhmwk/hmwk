@@ -1,21 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
-import React, { useEffect, useState } from "react";
-import { getHmwkTrackingDataThunk } from "../store/hash";
+import React from "react";
+import { useSelector } from "react-redux";
 
 function Home() {
-  const url = window.location.href;
-  const token = new URLSearchParams(url.split("?")[1].split("#")[0]).get(
-    "token"
-  );
   const hash = useSelector((state) => state.hash);
-  const dispatch = useDispatch();
-  const loadHmwkTrackingData = () => {
-    dispatch(getHmwkTrackingDataThunk(token));
-  };
-
-  useEffect(() => {
-    loadHmwkTrackingData(token);
-  }, []);
 
   const upload = () => {
     console.log("upload/take photo homework");
@@ -23,8 +10,11 @@ function Home() {
 
   return (
     <div id="home">
+      <div className="headerSubtitle">
+        <h1>{hash.hmwkTitle}</h1>
+      </div>
       <div className="greeting">
-        <h2> Hi {hash.name} </h2>
+        <h2> Hi {hash.studentName} </h2>
       </div>
       <div className="prompt">
         <h3> Are you ready to share?</h3>
@@ -32,6 +22,7 @@ function Home() {
       <button type="button" className="submitButton" onClick={() => upload()}>
         Upload
       </button>
+      <h4> Submit by {hash.dueDate} </h4>
     </div>
   );
 }

@@ -1,21 +1,21 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-const Header = () => (
-  <div>
-    <div className="header">
-      <img className="logo" src="hmwk_logo.png" alt="hmwk logo" />
-      <div className="headerTitle">
-        <h1>
-          <Link to="/home">Ms. Stacy's Math Class</Link>
-        </h1>
-      </div>
-      {/* write a if-else condition here to display specific header if the path is /allHmwks */}
-      <div className="headerSubtitle">
-        <h3>6. Multiplication Homework</h3>
+function Header() {
+  const hash = useSelector((state) => state.hash);
+  return (
+    <div>
+      <div className="header">
+        <img className="logo" src="hmwk_logo.png" alt="hmwk logo" />
+        <div className="headerTitle">
+          <h1>
+            <Link to="/home">Mr. Flitwick's Enchantments Class</Link>
+          </h1>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+}
 
 export default Header;
