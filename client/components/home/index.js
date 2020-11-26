@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
 import { useSelector } from "react-redux";
 import { Camera } from "../camera";
 import axios from "axios";
@@ -9,6 +8,7 @@ import axios from "axios";
 
 function Home() {
   const hash = useSelector((state) => state.hash);
+
   // Our camera component only will show when state = true; state will be true upon clicking the upload button
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   // We initially don't have a photo taken
@@ -24,20 +24,27 @@ function Home() {
     setIsCameraOpen(false);
   };
 
-  const savePhoto = async (photo) => {
+  // savePhoto converts the a photo blob to a string
+  // and saves it to the "photo" React state variable.
+  async function savePhoto(photoBlob) {
     try {
-      // SAVES THE PHOTO WHEN USER PRESS "TAKE PHOTO OF HMWK"
+      let photoString = await new Promise((resolve) => {
+        let reader = new FileReader();
+        reader.onload = (e) => resolve(reader.result);
+        reader.readAsBinaryString(photoBlob);
+      });
+      console.log("photoString:", photoString);
+      setPhoto(photoString);
       setIsPhotoTaken(true);
-      setPhoto(photo);
-      console.log("Saving the photo");
-    } catch (err) {
+    } catch (error) {
       console.error(err);
     }
-  };
+  }
 
+  // submitPhoto will take the photoBlob from savePhoto(...) and the token from the URL
+  // and send it to the back-end
   const submitPhoto = async (photo) => {
     try {
-      // SUBMITS THE PHOTO WHEN USER PRESS "SUBMIT"
       const url = window.location.href;
       const token = new URLSearchParams(url.split("?")[1].split("#")[0]).get(
         "token"
