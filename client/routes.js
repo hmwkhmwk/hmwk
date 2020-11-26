@@ -14,6 +14,7 @@ const Routes = () => {
       <Route path="/singleHmwk" component={SingleHmwk} />
       <Route exact path="/review" component={Review} />
       <Route path="/upload" component={Upload} />
+
       <Route component={Home} />
     </Switch>
   );
