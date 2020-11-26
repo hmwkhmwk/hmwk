@@ -21,7 +21,7 @@ body {
   font-family: "sofia-pro", sans-serif;
   width: 100%;
   margin: 0;
-  color: #8e9aaf;
+  color: #000000;
   background-color: #70d9e5;
 }
 
@@ -46,12 +46,14 @@ form div {
 /* buttons  */
 
 .submitButton {
-  background-color: #f93822;
+  background-color: #ffb81c;
   display: inline-block;
   padding: 0.3em;
   margin: 0.1em;
   border: 0.16em solid rgba(255, 255, 255, 0);
   border-radius: 50%;
+  height: 3em;
+  width: 3em;
   box-sizing: border-box;
   /* text-decoration: none; */
   font-weight: bold;
