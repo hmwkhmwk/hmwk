@@ -23,11 +23,11 @@ function Review() {
       <div className="imagePreview">
         {/* Here we will post the preview image(s) of the hmwk submission */}
       </div>
-      <Link to="/upload">
+      <Link to="/home">
         <button
           type="button"
           className="buttonCTA"
-          onClick={() => changeHwmk()}
+          // onClick={() => changeHwmk()}
         >
           Change it
         </button>

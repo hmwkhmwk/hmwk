@@ -24,9 +24,10 @@ router.post("/api/submit", fileUpload(), async (req, res, next) => {
   // }
   ImageService.writeSync(photoFile.name, photoFile.data.toString("binary"));
 
-  const { hmwkCompletionTrackingItemId } = db.getData(
-    `${SUBMIT_PATH_PREFIX}/${req.body.token}`
-  );
+  const {
+    hmwkCompletionTrackingItemId,
+    hmwkCompletionTrackingBoardId,
+  } = db.getData(`${SUBMIT_PATH_PREFIX}/${req.body.token}`);
 
   // Convert to PDF.
   const pdfName = `${path.parse(photoFile.name).name}.pdf`;
@@ -37,7 +38,8 @@ router.post("/api/submit", fileUpload(), async (req, res, next) => {
     const uploadResp = await HmwkService.uploadPDF(
       pdfName,
       pdfContent,
-      hmwkCompletionTrackingItemId
+      hmwkCompletionTrackingItemId,
+      hmwkCompletionTrackingBoardId
     );
     console.log("monday.com upload resp:", uploadResp.data);
     res.send("File uploaded to monday.com!");

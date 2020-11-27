@@ -19,13 +19,13 @@ function Upload() {
           </button>
         </Link>
       </div>
-      <div>
+      {/* <div>
         <Link to="/review">
           <button type="button" className="buttonCTA">
             Submit
           </button>
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 }
