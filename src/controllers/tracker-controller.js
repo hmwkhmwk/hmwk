@@ -88,6 +88,7 @@ async function track(req, res) {
     db.push(`${SUBMIT_PATH_PREFIX}/${uniqueToken}`, {
       hmwkCompletionTrackingItemId: hmwkCompletionTrackingItemId,
       hmwkAssignmentsItemId: itemId,
+      hmwkCompletionTrackingBoardId: hmwkCompletionTrackingBoardId,
     });
   }
 
