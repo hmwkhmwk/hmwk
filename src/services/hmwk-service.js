@@ -344,12 +344,19 @@ class HmwkService {
 
   // Upload a PDF to monday.com
   // Reference: https://gist.github.com/yuhgto/edb5d96e088599c2a6ea44860df9117b
-  static async uploadPDF(pdfName, content, itemId) {
+  static async uploadPDF(
+    pdfName,
+    content,
+    itemId,
+    hmwkCompletionTrackingBoardId
+  ) {
     // Hard-coded column ID for homework file column.
     const columnId = "files";
-    // TODO: Hard-coded board ID for clear file column
-    const boardId = 870520950;
-    await HmwkService.clearFileColumn(boardId, itemId, columnId);
+    await HmwkService.clearFileColumn(
+      hmwkCompletionTrackingBoardId,
+      itemId,
+      columnId
+    );
     const query = `mutation ($file: File!) { add_file_to_column (item_id: ${itemId}, column_id: "${columnId}", file: $file) { id } }`;
     const boundary = "xxxxxxxxxx";
     const headers = {
