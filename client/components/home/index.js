@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Camera } from "../camera";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
+
 // trying to use the "add file" icon
 // import { addfile } from "react-icons/antdesign";
 // import { FaFileUpload } from "react-icons";
 
 function Home() {
   const hash = useSelector((state) => state.hash);
+  const history = useHistory();
 
   // Our camera component only will show when state = true; state will be true upon clicking the upload button
   const [isCameraOpen, setIsCameraOpen] = useState(false);
@@ -63,6 +66,7 @@ function Home() {
         },
       });
       console.log("/api/submit resp.data:", data);
+      history.push("/review");
     } catch (err) {
       console.error(err);
     }
