@@ -11,10 +11,8 @@ function Home() {
 
   // Our camera component only will show when state = true; state will be true upon clicking the upload button
   const [isCameraOpen, setIsCameraOpen] = useState(false);
-  // We initially don't have a photo taken
-  const [isPhotoTaken, setIsPhotoTaken] = useState(false);
-  // sets the photo saved
-  const [photo, setPhoto] = useState("");
+  // Set the photo saved. Initially we don't have a photo taken.
+  const [photo, setPhoto] = useState(null);
 
   const upload = () => {
     setIsCameraOpen(true);
@@ -26,16 +24,9 @@ function Home() {
 
   // savePhoto converts the a photo blob to a string
   // and saves it to the "photo" React state variable.
-  async function savePhoto(photoBlob) {
+  async function savePhoto(blob) {
     try {
-      let photoString = await new Promise((resolve) => {
-        let reader = new FileReader();
-        reader.onload = (e) => resolve(reader.result);
-        reader.readAsBinaryString(photoBlob);
-      });
-      console.log("photoString:", photoString);
-      setPhoto(photoString);
-      setIsPhotoTaken(true);
+      setPhoto(blob);
     } catch (error) {
       console.error(err);
     }
@@ -45,19 +36,33 @@ function Home() {
   // and send it to the back-end
   const submitPhoto = async (photo) => {
     try {
+      // Get the token from the URL.
       const url = window.location.href;
       const token = new URLSearchParams(url.split("?")[1].split("#")[0]).get(
         "token"
       );
-      const reqBody = {
-        //JSON file including the hash and the image
-        token,
+
+      // Create a "fake" form.
+      // https://stackoverflow.com/a/47630754/859840
+      const formData = new FormData();
+      formData.append("token", token);
+      formData.append(
+        "photo",
         photo,
-      };
-      console.log("reqBody: ", reqBody);
-      console.log("blob is: ", typeof photo);
-      const { data } = await axios.post(`/api/submit`, reqBody);
-      console.log("Submitting this photo to the back-end", data);
+        `${hash.hmwkTitle} - ${hash.studentName}.png`
+      );
+      for (var [key, value] of formData.entries()) {
+        console.log(key, value);
+      }
+
+      console.log("formData:");
+      console.log(JSON.stringify(formData));
+      const { data } = await axios.post("/api/submit", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log("/api/submit resp.data:", data);
     } catch (err) {
       console.error(err);
     }
@@ -67,8 +72,8 @@ function Home() {
     <div id="home">
       {isCameraOpen ? (
         <div>
-          <Camera onCapture={(photo) => savePhoto(photo)} />
-          {isPhotoTaken ? (
+          <Camera onCapture={(blob) => savePhoto(blob)} />
+          {photo ? (
             <button className="buttonCTA" onClick={() => submitPhoto(photo)}>
               Submit
             </button>
