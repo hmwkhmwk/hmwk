@@ -320,11 +320,36 @@ class HmwkService {
     return resps;
   }
 
+  static async clearFileColumn(boardId, itemId, columnId) {
+    console.log(
+      `Clearing the file column - boardId: ${boardId}, itemId: ${itemId}`
+    );
+    const columnValue = escapeDoubleQuotes(
+      JSON.stringify({
+        clear_all: true,
+      })
+    );
+    const query = `mutation 
+    {
+      change_column_value (board_id: ${boardId}, item_id: ${itemId}, column_id: ${columnId}, value: "${columnValue}") 
+      {
+        id
+      }
+    }`;
+    const resp = await monday.api(query);
+    if (resp.errors) {
+      throw resp.errors;
+    }
+  }
+
   // Upload a PDF to monday.com
   // Reference: https://gist.github.com/yuhgto/edb5d96e088599c2a6ea44860df9117b
   static async uploadPDF(pdfName, content, itemId) {
     // Hard-coded column ID for homework file column.
     const columnId = "files";
+    // TODO: Hard-coded board ID for clear file column
+    const boardId = 870520950;
+    await HmwkService.clearFileColumn(boardId, itemId, columnId);
     const query = `mutation ($file: File!) { add_file_to_column (item_id: ${itemId}, column_id: "${columnId}", file: $file) { id } }`;
     const boundary = "xxxxxxxxxx";
     const headers = {
