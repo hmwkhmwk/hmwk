@@ -54,7 +54,7 @@ class ImageService {
   static convertToPDFSync(inpath, outpath) {
     inpath = path.join(TMP_DIR, inpath);
     outpath = path.join(TMP_DIR, outpath);
-    const magickCmd = `magick convert ${inpath} ${outpath}`;
+    const magickCmd = `magick convert '${inpath}' '${outpath}'`;
     console.log(`${magickCmd}\n`, execSync(magickCmd));
     return fs.readFileSync(outpath);
   }
