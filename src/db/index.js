@@ -1,83 +1,99 @@
 const { JsonDB } = require("node-json-db");
 const { Config } = require("node-json-db/dist/lib/JsonDBConfig");
-const AsyncLock = require("async-lock");
-
-// Default hmwk-db.json filename.
-const DB_FILENAME = "hmwk-db";
+const Redis = require("ioredis");
+const JSONCache = require("redis-json");
+require("dotenv").config();
 
 const RESEED_PATH_PREFIX = "/reseed";
 const TRACKER_PATH_PREFIX = "/tracker";
 const SUBMIT_PATH_PREFIX = "/submit";
 
-// Implements concurrent DB supporting thread-safe read/write/delete operations
-class ConcurrentDB {
+// Decide between Redis or JsonDB.
+const USE_REDIS = process.env.USE_REDIS === "true";
+
+// Redis-related config.
+const REDIS_PORT = process.env.REDIS_PORT || 0;
+const REDIS_HOST = process.env.REDIS_HOST || "";
+const REDIS_OPTIONS = {};
+
+// Default hmwk-db.json filename.
+const JSON_DB_FILENAME = process.env.JSON_DB_FILENAME || "hmwk-db";
+
+// RedisDBAdaptor adapts a Redis JSONCache to an "interface"
+// consistent with our legacy JSONDB.
+class RedisDBAdaptor {
+  constructor(jsonCache) {
+    this._jsonCache = jsonCache;
+  }
+
+  async push(dataPath, value) {
+    return await this._jsonCache.set(dataPath, value);
+  }
+
+  async delete(dataPath) {
+    return await this._jsonCache.del(dataPath);
+  }
+
+  async exists(dataPath) {
+    const got = await this._jsonCache.get(dataPath);
+    return got !== undefined;
+  }
+
+  async getData(dataPath) {
+    return await this._jsonCache.get(dataPath);
+  }
+}
+
+// JsonDBAdaptor adapts a JsonDB to an "interface"
+// consistent with the new Redis DB.
+// Unfortunately, this means JsonDBAdaptor needs to be async,
+// while the original JsonDB wasn't.
+class JsonDBAdaptor {
   constructor(jsonDB) {
     this._jsonDB = jsonDB;
-
-    // for synchronization
-    this._lock = new AsyncLock();
-    this.LOCK_KEY = "LOCK_KEY";
   }
 
-  // Methods
-  push(dataPath, value) {
-    this._lock.acquire(this.LOCK_KEY, () => {
-      console.log(
-        `Acquired lockfor push where dataPath=${dataPath}, value=${JSON.stringify(
-          value
-        )}`
-      );
-      this._jsonDB.push(dataPath, value);
-    });
+  async push(dataPath, value) {
+    return this._jsonDB.push(dataPath, value);
   }
 
-  delete(dataPath) {
-    this._lock.acquire(this.LOCK_KEY, () => {
-      console.log(
-        `Acquired lock=${this.LOCK_KEY} for delete where dataPath=${dataPath}`
-      );
-      this._jsonDB.delete(dataPath);
-    });
+  async delete(dataPath) {
+    return this._jsonDB.delete(dataPath);
   }
 
-  exists(dataPath) {
-    let ret = false;
-    this._lock.acquire(this.LOCK_KEY, () => {
-      console.log(`Acquired lockfor exists where dataPath=${dataPath}`);
-      ret = this._jsonDB.exists(dataPath);
-    });
-    return ret;
+  async exists(dataPath) {
+    return this._jsonDB.exists(dataPath);
   }
 
-  getData(dataPath) {
-    let ret;
-    this._lock.acquire(this.LOCK_KEY, () => {
-      console.log(`Acquired lockfor getData where dataPath=${dataPath}`);
-      ret = this._jsonDB.getData(dataPath);
-    });
-    return ret;
+  async getData(dataPath) {
+    return this._jsonDB.getData(dataPath);
   }
 }
 
 /**
- * Create a new hmwk JsonDB.
+ * Create a new hmwk JsonDB or RedisDBAdaptor, depending on USE_REDIS.
  * @param {string} fileName database filename. Defaults to DB_FILENAME.
  * @param {boolean} saveOnPush save to the database after every operation.
- * @returns {JsonDB}
+ * @returns {JsonDBAdaptor|RedisDBAdaptor}
  */
-function newDB(filename = DB_FILENAME, saveOnPush = true) {
+function newDB() {
+  // Redis.
+  if (USE_REDIS) {
+    const redis = new Redis(REDIS_PORT, REDIS_HOST, REDIS_OPTIONS);
+    const jsonCache = new JSONCache(redis);
+    return new RedisDBAdaptor(jsonCache);
+  }
+
+  // JsonDB.
   const jsonDB = new JsonDB(
     new Config(
-      filename,
+      JSON_DB_FILENAME,
       true /* humanReadable */,
-      saveOnPush,
+      true /* saveOnPush */,
       "/" /* separator */
     )
   );
-  // TODO(rt): Fix data race issue with ConcurrentDB
-  // (this._lock.acquire() returns a Promise)
-  // return new ConcurrentDB(jsonDB);
-  return jsonDB;
+  return new JsonDBAdaptor(jsonDB);
 }
 
 module.exports = {

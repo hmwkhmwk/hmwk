@@ -27,7 +27,7 @@ router.post("/api/submit", fileUpload(), async (req, res, next) => {
   const {
     hmwkCompletionTrackingItemId,
     hmwkCompletionTrackingBoardId,
-  } = db.getData(`${SUBMIT_PATH_PREFIX}/${req.body.token}`);
+  } = await db.getData(`${SUBMIT_PATH_PREFIX}/${req.body.token}`);
 
   // Convert to PDF.
   const pdfName = `${path.parse(photoFile.name).name}.pdf`;
