@@ -67,6 +67,7 @@ function Home() {
       });
       console.log("/api/submit resp.data:", data);
       history.push("/review");
+      window.location.reload();
     } catch (err) {
       console.error(err);
     }
@@ -104,19 +105,40 @@ function Home() {
               alt="Upload Sticker"
             />{" "}
           </div>
-          <div className="greeting">
-            <h2>
-              {" "}
-              Hi {hash.studentName}, are you ready to submit your homework?{" "}
-            </h2>
-          </div>
-          <button
-            type="button"
-            className="submitButton"
-            onClick={() => upload()}
-          >
-            Upload
-          </button>
+
+          {hash.file === "" ? (
+            <div>
+              <div className="greeting">
+                <h2>
+                  {" "}
+                  Hi {hash.studentName}, are you ready to submit your homework?{" "}
+                </h2>
+              </div>
+              <button
+                type="button"
+                className="submitButton"
+                onClick={() => upload()}
+              >
+                Upload
+              </button>
+            </div>
+          ) : (
+            <div>
+              <div className="greeting">
+                <h2>
+                  {" "}
+                  Hi {hash.studentName}, do you want to resubmit your homework?{" "}
+                </h2>
+              </div>
+              <button
+                type="button"
+                className="submitButton"
+                onClick={() => upload()}
+              >
+                Resubmit
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>
