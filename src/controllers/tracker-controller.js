@@ -8,8 +8,9 @@ const { newDB, TRACKER_PATH_PREFIX, SUBMIT_PATH_PREFIX } = require("../db");
 // TODO(lrt98802, YuniceXiao): Utilize db to read/write to /tracker and /submit.
 const db = newDB();
 
-const HOST = "https://www.hmwk.herokuapp.com";
-const END_POINT = "submission";
+// Submission link will look like: "https://hmwkhmwk.herokuapp.com/?token=xxxxxxx"
+const HOST = "https://hmwkhmwk.herokuapp.com/";
+const END_POINT = "";
 
 /* this function tracks when an assignment's status changes from
 "Not Ready" to "Send to Students" which will call .getAllStudents() 
