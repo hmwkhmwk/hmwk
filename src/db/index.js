@@ -14,9 +14,15 @@ const SUBMIT_PATH_PREFIX = "/submit";
 // Decide between Redis or JsonDB.
 const USE_REDIS = process.env.USE_REDIS === "true";
 
-// Redis-related config.
-const REDIS_PORT = process.env.REDIS_PORT || 7001;
-const REDIS_HOST = process.env.REDIS_HOST || "localhost";
+/* Redis-related config. */
+// https://devcenter.heroku.com/articles/redistogo#using-with-node-js
+let rtg = { port: 7001, hostname: "localhost" };
+if (USE_REDIS) {
+  rtg = require("url").parse(process.env.REDISTOGO_URL);
+  redis.auth(rtg.auth.split(":")[1]);
+}
+const REDIS_PORT = rtg.port || process.env.REDIS_PORT;
+const REDIS_HOST = rtg.hostname || process.env.REDIS_HOST;
 const REDIS_OPTIONS = {};
 const JC_PREFIX = "jc";
 
