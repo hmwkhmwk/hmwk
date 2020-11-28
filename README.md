@@ -72,3 +72,14 @@ npm run reseed
 ```
 
 Note: Don't reseed too often in a short amount of time. [monday.com rate limits you](https://monday.com/developers/v2#rate-limits-section).
+
+### Build the app and run it locally with Heroku command
+
+You will need to install [`Heroku CLI`](https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up) first
+
+```
+npm install
+heroku local web
+```
+
+The app will now be redirected to http://localhost:5000/
