@@ -79,7 +79,12 @@ async function reseed(subID, sub) {
 // The `reseed` function is concerned only with modifying the database.
 async function runReseed() {
   const db = newDB();
-  const subs = db.getData(RESEED_PATH_PREFIX);
+  const subs = await db.getData(RESEED_PATH_PREFIX);
+  console.log("subs");
+  console.log(subs);
+  if (!subs) {
+    return;
+  }
   for (let subID in subs) {
     try {
       await reseed(subID, subs[subID]);
@@ -93,7 +98,7 @@ async function runReseed() {
     }
     console.log("");
   }
-  resetDB(db);
+  await resetDB(db);
   console.log("Done reseeding.");
   console.log(
     'Do not run "npm run reseed" too many times in a short amount of time. ' +
@@ -102,16 +107,18 @@ async function runReseed() {
   );
 }
 
-function resetDB(db) {
-  db.delete(TRACKER_PATH_PREFIX);
+async function resetDB(db) {
+  await db.delete(TRACKER_PATH_PREFIX);
   console.log(`Deleted ${TRACKER_PATH_PREFIX} in database`);
-  db.delete(SUBMIT_PATH_PREFIX);
+  await db.delete(SUBMIT_PATH_PREFIX);
   console.log(`Deleted ${SUBMIT_PATH_PREFIX} in database`);
 }
 
 // Execute the `reseed` function, IF we ran this module directly (`node seed`).
 if (module === require.main) {
-  runReseed();
+  runReseed().then(() => {
+    process.exit(0);
+  });
 }
 
 // We export the reseed function for testing purposes.

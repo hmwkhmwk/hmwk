@@ -33,7 +33,7 @@ class ReseedController {
         studentsId,
         hmwkCompletionTrackingId,
       };
-      this._db.push(`${RESEED_PATH_PREFIX}/${subscriptionId}`, value);
+      await this._db.push(`${RESEED_PATH_PREFIX}/${subscriptionId}`, value);
 
       // webhookId is treated as the same as subscriptionId.
       return res.status(200).send({ webhookId: subscriptionId });
@@ -47,7 +47,7 @@ class ReseedController {
     try {
       // webhookId is treated as the same as subscriptionId.
       const { webhookId } = req.body.payload;
-      this._db.delete(`${RESEED_PATH_PREFIX}/${webhookId}`);
+      await this._db.delete(`${RESEED_PATH_PREFIX}/${webhookId}`);
     } catch (err) {
       next(err);
     }

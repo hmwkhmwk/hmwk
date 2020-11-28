@@ -50,10 +50,12 @@ async function track(req, res) {
 
   // Check if run already.
   const trackerPath = `${TRACKER_PATH_PREFIX}/${itemId}`;
-  if (db.exists(trackerPath) && db.getData(trackerPath).done) {
+  const exists = await db.exists(trackerPath);
+  const trackerVal = await db.getData(trackerPath);
+  if (exists && trackerVal.done) {
     return res.status(200).send({});
   }
-  db.push(trackerPath, { done: false });
+  await db.push(trackerPath, { done: false });
 
   const studentInfo = await _getStudentInfo(studentsBoardId);
   console.log(
@@ -66,7 +68,7 @@ async function track(req, res) {
   let assignments = [];
   for (let student of studentInfo) {
     // Preparing data for populating hmwkCompletionTrackingBoard
-    let data = {
+    const data = {
       name: student.name, // Student Name
       date4: hmwkDetails.dueDate, // Due Date
       status: "Not Submitted", // Submission Status
@@ -86,7 +88,7 @@ async function track(req, res) {
   for (let i = 0; i < resps.length; i++) {
     const hmwkCompletionTrackingItemId = resps[i].data.create_item.id;
     const uniqueToken = parseToken(assignments[i].text9);
-    db.push(`${SUBMIT_PATH_PREFIX}/${uniqueToken}`, {
+    await db.push(`${SUBMIT_PATH_PREFIX}/${uniqueToken}`, {
       hmwkCompletionTrackingItemId: hmwkCompletionTrackingItemId,
       hmwkAssignmentsItemId: itemId,
       hmwkCompletionTrackingBoardId: hmwkCompletionTrackingBoardId,
@@ -94,7 +96,7 @@ async function track(req, res) {
   }
 
   // Store a successful run in /tracker.
-  db.push(trackerPath, { done: true });
+  await db.push(trackerPath, { done: true });
 
   return res.status(200).send({});
 }
