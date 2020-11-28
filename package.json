@@ -5,16 +5,19 @@
   "description": "Collect homework assignments and keep track of them in one place",
   "main": "src/app.js",
   "private": true,
+  "engines": {
+    "node": "14.15.0"
+  },
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "expose": "ngrok http 8302",
     "get-public-address": "addr=$(curl http://localhost:4040/api/tunnels | jq -r '.tunnels | .[] | select( .name == \"command_line\" ) | .public_url') && echo \"\nYour public URL is $addr\"",
     "reseed": "node src/scripts/reseed.js",
-    "start": "npm run stop && concurrently \"npm run server\" \"npm run expose\" \"sleep 2 && npm run get-public-address\"",
+    "start": "npm run stop && npm run server",
     "server": "node ./src/app.js",
     "server-dev": "webpack --config webpack.config.js --watch & NODE_ENV=dev nodemon ./src/app.js",
     "server-with-debugger": "nodemon --delay 100ms --exec 'fuser -k 9228/tcp; node --inspect=0.0.0.0:9228 ./src/app.js'",
-    "stop": "kill-port 8302 && kill-port 4049 && kill-port 4040",
+    "stop": "kill-port 8302 && kill-port 4049 && kill-port 4040 && kill-port 5000",
     "test": "jest"
   },
   "nodemonConfig": {

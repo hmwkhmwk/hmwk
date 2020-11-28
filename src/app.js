@@ -6,7 +6,10 @@ const path = require("path");
 var bodyParser = require("body-parser");
 const routes = require("./routes");
 const app = express();
-const port = process.env.PORT;
+
+// If environment variable is not set, will use port 8302
+// Heroku will set the envrionment variable automatically for us
+const port = process.env.PORT || 8302;
 
 // logging middleware
 app.use(morgan("dev")); // by default use "dev" format.
