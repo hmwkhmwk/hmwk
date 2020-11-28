@@ -1,7 +1,10 @@
+const { promisify } = require("util");
+
 const { JsonDB } = require("node-json-db");
 const { Config } = require("node-json-db/dist/lib/JsonDBConfig");
-const Redis = require("ioredis");
+const redis = require("redis");
 const JSONCache = require("redis-json");
+const { exit } = require("process");
 require("dotenv").config();
 
 const RESEED_PATH_PREFIX = "/reseed";
@@ -12,18 +15,24 @@ const SUBMIT_PATH_PREFIX = "/submit";
 const USE_REDIS = process.env.USE_REDIS === "true";
 
 // Redis-related config.
-const REDIS_PORT = process.env.REDIS_PORT || 0;
-const REDIS_HOST = process.env.REDIS_HOST || "";
+const REDIS_PORT = process.env.REDIS_PORT || 7001;
+const REDIS_HOST = process.env.REDIS_HOST || "localhost";
 const REDIS_OPTIONS = {};
+const JC_PREFIX = "jc";
 
 // Default hmwk-db.json filename.
 const JSON_DB_FILENAME = process.env.JSON_DB_FILENAME || "hmwk-db";
 
 // RedisDBAdaptor adapts a Redis JSONCache to an "interface"
-// consistent with our legacy JSONDB.
+// consistent with our legacy JsonDB.
 class RedisDBAdaptor {
-  constructor(jsonCache) {
-    this._jsonCache = jsonCache;
+  constructor(client) {
+    this._client = client;
+    this._jsonCache = new JSONCache(client);
+
+    // Promisified-methods.
+    this._asyncKeys = promisify(this._client.keys).bind(this._client);
+    this._asyncGet = promisify(this._client.get).bind(this._client);
   }
 
   async push(dataPath, value) {
@@ -40,6 +49,23 @@ class RedisDBAdaptor {
   }
 
   async getData(dataPath) {
+    // Hack for paths like "a/b/c".
+    if ((dataPath.match(/\//g) || []).length === 1) {
+      let ret = {};
+      const keys = await this._asyncKeys(`${JC_PREFIX}:${dataPath}*`);
+      for (let key of keys) {
+        if (key.match(/^jc:.+_t$/g)) {
+          continue;
+        }
+        // Strip JC_PREFIX.
+        key = key.substring(JC_PREFIX.length + 1);
+        const keySuffix = key.substring(key.lastIndexOf("/") + 1);
+        const value = await this._jsonCache.get(key);
+        ret[keySuffix] = value;
+      }
+      return ret;
+    }
+
     return await this._jsonCache.get(dataPath);
   }
 }
@@ -79,9 +105,9 @@ class JsonDBAdaptor {
 function newDB() {
   // Redis.
   if (USE_REDIS) {
-    const redis = new Redis(REDIS_PORT, REDIS_HOST, REDIS_OPTIONS);
-    const jsonCache = new JSONCache(redis);
-    return new RedisDBAdaptor(jsonCache);
+    // const redis = new Redis(REDIS_PORT, REDIS_HOST, REDIS_OPTIONS);
+    const client = redis.createClient(REDIS_PORT, REDIS_HOST, REDIS_OPTIONS);
+    return new RedisDBAdaptor(client);
   }
 
   // JsonDB.

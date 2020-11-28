@@ -80,6 +80,11 @@ async function reseed(subID, sub) {
 async function runReseed() {
   const db = newDB();
   const subs = await db.getData(RESEED_PATH_PREFIX);
+  console.log("subs");
+  console.log(subs);
+  if (!subs) {
+    return;
+  }
   for (let subID in subs) {
     try {
       await reseed(subID, subs[subID]);
@@ -111,7 +116,9 @@ async function resetDB(db) {
 
 // Execute the `reseed` function, IF we ran this module directly (`node seed`).
 if (module === require.main) {
-  runReseed();
+  runReseed().then(() => {
+    process.exit(0);
+  });
 }
 
 // We export the reseed function for testing purposes.
