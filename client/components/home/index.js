@@ -4,10 +4,6 @@ import { Camera } from "../camera";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
-// trying to use the "add file" icon
-// import { addfile } from "react-icons/antdesign";
-// import { FaFileUpload } from "react-icons";
-
 function Home() {
   const hash = useSelector((state) => state.hash);
   const history = useHistory();
@@ -91,7 +87,7 @@ function Home() {
           </button>
         </div>
       ) : (
-        <div>
+        <div className="subheader">
           <div className="headerSubtitle">
             <h1>{hash.hmwkTitle}</h1>
           </div>

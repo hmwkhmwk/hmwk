@@ -20,16 +20,103 @@ function AllHmwks() {
       connecting the components with the store */}
 
       <Link to="/singleHmwk">
-        <button className="buttonCTA">Homework 1</button>
+        <button className="buttonCTA">
+          <img
+            className="sticker"
+            src="./stickers/hmwk_apple.png"
+            alt="Upload Sticker"
+            width="80"
+            height="80"
+          />
+        </button>
       </Link>
       <Link to="/singleHmwk">
-        <button className="buttonCTA">Homework 2</button>
+        <button className="buttonCTA">
+          <img
+            className="sticker"
+            src="./stickers/hmwk_banana.png"
+            alt="Upload Sticker"
+            width="80"
+            height="80"
+          />
+        </button>
       </Link>
       <Link to="/singleHmwk">
-        <button className="buttonCTA">Homework 3</button>
+        <button className="buttonCTA">
+          <img
+            className="sticker"
+            src="./stickers/hmwk_pear.png"
+            alt="Upload Sticker"
+            width="80"
+            height="80"
+          />
+        </button>
       </Link>
       <Link to="/singleHmwk">
-        <button className="buttonCTA">Homework 4</button>
+        <button className="buttonCTA">
+          <img
+            className="sticker"
+            src="./stickers/hmwk_orange.png"
+            alt="Upload Sticker"
+            width="80"
+            height="80"
+          />
+        </button>
+      </Link>
+      <Link to="/singleHmwk">
+        <button className="buttonCTA">
+          <img
+            className="sticker"
+            src="./stickers/hmwk_peach.png"
+            alt="Upload Sticker"
+            width="80"
+            height="80"
+          />
+        </button>
+      </Link>
+      <Link to="/singleHmwk">
+        <button className="buttonCTA">
+          <img
+            className="sticker"
+            src="./stickers/hmwk_blueberry.png"
+            alt="Upload Sticker"
+            width="80"
+            height="80"
+          />
+        </button>
+      </Link>
+      <Link to="/singleHmwk">
+        <button className="buttonCTA">
+          <img
+            className="sticker"
+            src="./stickers/hmwk_kiwi.png"
+            alt="Upload Sticker"
+            width="80"
+            height="80"
+          />
+        </button>
+      </Link>
+      <Link to="/singleHmwk">
+        <button className="buttonCTA">
+          <img
+            className="sticker"
+            src="./stickers/hmwk_lemon.png"
+            alt="Upload Sticker"
+            width="80"
+            height="80"
+          />
+        </button>
+      </Link>
+      <Link to="/singleHmwk">
+        <button className="buttonCTA">
+          <img
+            className="sticker"
+            src="./stickers/hmwk_pineapple.png"
+            alt="Upload Sticker"
+            width="80"
+            height="80"
+          />
+        </button>
       </Link>
     </div>
   );
