@@ -249,9 +249,47 @@ form div {
 }
 
 /* CSS for Review component */
+.subheaderAllHmwk {
+  height: 100px;
+  background-color: #70d9e5;
+}
+
+.subheaderAllHmwk h1 {
+  padding: 20px;
+}
+
 .imagePreview {
   height: 130px;
   margin: 8px 0 24px;
   padding: 13px 100px 13px 101px;
   background-color: #70d9e5;
+}
+
+.stickersRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-content: space-between;
+  height: 135px;
+  margin-top: 72px;
+}
+
+.grade {
+  width: 41px;
+  height: 41px;
+  /* margin: 0 0 50px 48px; */
+  padding: 4px 2px 2px 2px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+  background-color: #f93822;
+  border-radius: 50px;
+  color: #fff;
+  position: relative;
+  align-self: right;
+}
+.circle {
+  position: relative;
+  background-color: white;
+  width: 120px;
+  height: 120px;
+  border-radius: 100px;
 }
