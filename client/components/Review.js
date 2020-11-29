@@ -12,8 +12,9 @@ function Review() {
       </div>
       <div className="greeting">
         <img
-          src="https://content.mycutegraphics.com/graphics/star/yellow-rounded-corner-star.png"
-          alt="hmwk star"
+          className="sticker"
+          src="./stickers/hmwk_grape.png"
+          alt="Upload Sticker"
         />
       </div>
       <div className="prompt">

@@ -16,13 +16,12 @@ html {
 
 body {
   /* font-family: sans-serif; */
-  background-color: fff8d6;
+  background-color: #6eb3c8;
   text-align: center;
   font-family: "sofia-pro", sans-serif;
   width: 100%;
   margin: 0;
   color: #000000;
-  background-color: #70d9e5;
 }
 
 a {
@@ -52,13 +51,13 @@ form div {
   margin: 0.1em;
   border: 0.16em solid rgba(255, 255, 255, 0);
   border-radius: 50%;
-  height: 3em;
-  width: 3em;
+  height: 214px;
+  width: 214px;
   box-sizing: border-box;
   /* text-decoration: none; */
   font-weight: bold;
   text-align: center;
-  font-size: 70px;
+  font-size: 40px;
   color: #ffffff;
   text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
   /* transition: all 0.2s; */
@@ -137,6 +136,11 @@ form div {
   padding: 10px 20px 10px 20px;
 }
 
+.subheader {
+  height: 144px;
+  background-color: #70d9e5;
+}
+
 /* .headerLogo {
   display: flex;
   align-items: flex-start;
@@ -160,7 +164,12 @@ form div {
 .headerSubtitle {
   display: flex;
   align-items: flex-start;
+  size: 30px;
   justify-content: center;
+}
+
+.deadline {
+  size: 18px;
 }
 /* .header ::before {
   content: "\a";
@@ -239,9 +248,48 @@ form div {
   text-align: left;
 }
 
-/* CSS for Submit component */
-.imagePreview {
-  border-radius: 10px;
+/* CSS for Review component */
+.subheaderAllHmwk {
+  height: 100px;
+  background-color: #70d9e5;
 }
 
-/* CSS for Review component */
+.subheaderAllHmwk h1 {
+  padding: 20px;
+}
+
+.imagePreview {
+  height: 130px;
+  margin: 8px 0 24px;
+  padding: 13px 100px 13px 101px;
+  background-color: #70d9e5;
+}
+
+.stickersRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-content: space-between;
+  height: 135px;
+  margin-top: 72px;
+}
+
+.grade {
+  width: 41px;
+  height: 41px;
+  /* margin: 0 0 50px 48px; */
+  padding: 4px 2px 2px 2px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+  background-color: #f93822;
+  border-radius: 50px;
+  color: #fff;
+  position: relative;
+  align-self: right;
+}
+.circle {
+  position: relative;
+  background-color: white;
+  width: 120px;
+  height: 120px;
+  border-radius: 100px;
+}
