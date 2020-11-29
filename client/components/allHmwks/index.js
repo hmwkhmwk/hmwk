@@ -16,19 +16,19 @@ function AllHmwks() {
 
       <div className="stickersRow">
         {/* Sticker from hmwk #1 */}
-        <Link to="/singleHmwk">
+        <Link to="../singleHmwk">
           <div className="circle">
             <Sticker url="stickers/hmwk_apple.png" />
           </div>
         </Link>
         {/* Sticker from hmwk #2 */}
-        <Link to="/singleHmwk">
+        <Link to="../singleHmwk">
           <div className="circle">
             <Sticker url="stickers/hmwk_banana.png" />
           </div>
         </Link>
         {/* Sticker from hmwk #3 */}
-        <Link to="/singleHmwk">
+        <Link to="../singleHmwk">
           <div className="circle">
             <Sticker url="stickers/hmwk_pear.png" />
           </div>
@@ -37,19 +37,19 @@ function AllHmwks() {
 
       <div className="stickersRow">
         {/* Sticker from hmwk #4 */}
-        <Link to="/singleHmwk">
+        <Link to="../singleHmwk">
           <div className="circle">
             <Sticker url="stickers/hmwk_cherry.png" />
           </div>
         </Link>
         {/* Sticker from hmwk #5 */}
-        <Link to="/singleHmwk">
+        <Link to="../singleHmwk">
           <div className="circle">
             <Sticker url="stickers/hmwk_blueberry.png" />
           </div>
         </Link>
         {/* Sticker from hmwk #6 */}
-        <Link to="/singleHmwk">
+        <Link to="../singleHmwk">
           <div className="circle">
             <Sticker url="stickers/hmwk_kiwi.png" />
           </div>
@@ -58,19 +58,19 @@ function AllHmwks() {
 
       <div className="stickersRow">
         {/* Sticker from hmwk #7 */}
-        <Link to="/singleHmwk">
+        <Link to="../singleHmwk">
           <div className="circle">
             <Sticker url="stickers/hmwk_pineapple.png" />
           </div>
         </Link>
         {/* Sticker from hmwk #8 */}
-        <Link to="/singleHmwk">
+        <Link to="../singleHmwk">
           <div className="circle">
             <Sticker url="stickers/hmwk_melon.png" />
           </div>
         </Link>
         {/* Sticker from hmwk #9 */}
-        <Link to="/singleHmwk">
+        <Link to="../singleHmwk">
           <div className="circle">
             <Sticker url="stickers/hmwk_grape.png" />
           </div>
