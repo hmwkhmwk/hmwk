@@ -7,7 +7,7 @@ function Header() {
   return (
     <div>
       <div className="header">
-        <img className="logo" src="hmwk_logo.png" alt="hmwk logo" />
+        <img className="logo" src="svg/hmwk_wide_logo.svg" alt="hmwk logo" />
         <div className="headerTitle">
           <h1>
             <Link to="/home">Mr. Flitwick's Enchantments Class</Link>

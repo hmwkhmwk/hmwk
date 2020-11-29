@@ -15,7 +15,6 @@ html {
 }
 
 body {
-  /* font-family: sans-serif; */
   background-color: #6eb3c8;
   text-align: center;
   font-family: "sofia-pro", sans-serif;
@@ -54,49 +53,12 @@ form div {
   height: 214px;
   width: 214px;
   box-sizing: border-box;
-  /* text-decoration: none; */
+  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.16);
   font-weight: bold;
   text-align: center;
   font-size: 40px;
   color: #ffffff;
   text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
-  /* transition: all 0.2s; */
-}
-
-.addMore {
-  background-color: #f93822;
-  display: inline-block;
-  padding: 0.3em;
-  margin: 0.1em;
-  border: 0.16em solid rgba(255, 255, 255, 0);
-  border-radius: 50%;
-  box-sizing: border-box;
-  /* text-decoration: none; */
-  font-weight: bold;
-  text-align: center;
-  font-size: 30px;
-  color: #ffffff;
-  text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
-  /* transition: all 0.2s; */
-}
-
-.submitFlat {
-  background-color: #f93822;
-  display: inline-block;
-  padding: 0.3em;
-  margin: 0.1em;
-  border: 0.16em solid rgba(255, 255, 255, 0);
-  border-radius: 10%;
-  box-sizing: border-box;
-  /* text-decoration: none; */
-  font-weight: bold;
-  text-align: center;
-  font-size: 30px;
-  color: #ffffff;
-  text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
-  /* transition: all 0.2s; */
-  position: relative;
-  transition: 0.2s ease-in-out;
 }
 
 .buttonCTA {
@@ -113,27 +75,19 @@ form div {
   letter-spacing: 2px;
 }
 
-.cornerButton {
-  background: transparent;
-  color: #000000;
-  border: 3px solid #000000;
+.buttonWhite {
+  width: 246px;
+  background: white;
   border-radius: 50px;
   padding: 0.8rem 2rem;
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
+  font: 24px "SofiaProSoftMedium", sans-serif;
 }
+
 /* CSS for Header component */
 
 .header {
-  display: flex;
-  justify-content: center;
-  align-items: space-between;
   background-color: #fff;
-  /* border: 3px solid #ff7b00; */
-  border-radius: 10px;
-  height: 150px;
-  padding: 10px 20px 10px 20px;
+  padding: 20px;
 }
 
 .subheader {
@@ -141,17 +95,7 @@ form div {
   background-color: #70d9e5;
 }
 
-/* .headerLogo {
-  display: flex;
-  align-items: flex-start;
-} */
-
 .logo {
-  display: flex;
-  align-self: flex-start;
-  align-items: center;
-  justify-content: flex-start;
-  height: 150px;
   width: 150px;
 }
 
@@ -171,20 +115,6 @@ form div {
 .deadline {
   size: 18px;
 }
-/* .header ::before {
-  content: "\a";
-  display: block;
-  width: 10px;
-  height: 10px;
-  color: red;
-}
-.header ::after {
-  content: "\a";
-  display: block;
-  width: 10px;
-  height: 10px;
-  color: blue;
-} */
 
 .header h1 {
   margin: 0;
@@ -216,7 +146,6 @@ form div {
   display: flex;
   justify-content: space-between;
   background-color: #fff;
-  /* border: 3px solid #ff7b00; */
   border-radius: 10px;
   height: 200px;
   padding: 20px 40px 20px 60px;
@@ -248,7 +177,7 @@ form div {
   text-align: left;
 }
 
-/* CSS for Review component */
+/* CSS for ALLHMWK component */
 .subheaderAllHmwk {
   height: 100px;
   background-color: #70d9e5;
@@ -256,13 +185,7 @@ form div {
 
 .subheaderAllHmwk h1 {
   padding: 20px;
-}
-
-.imagePreview {
-  height: 130px;
-  margin: 8px 0 24px;
-  padding: 13px 100px 13px 101px;
-  background-color: #70d9e5;
+  margin: 0px;
 }
 
 .stickersRow {
@@ -275,21 +198,45 @@ form div {
 }
 
 .grade {
-  width: 41px;
-  height: 41px;
-  /* margin: 0 0 50px 48px; */
-  padding: 4px 2px 2px 2px;
-  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+  position: absolute;
+  width: 40px;
+  height: 40px;
   background-color: #f93822;
-  border-radius: 50px;
+  border-radius: 100px;
+  right: 0;
   color: #fff;
-  position: relative;
-  align-self: right;
+  text-align: center;
+  font-size: 24px;
+  font-family: sofia-pro-soft;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
 }
+
 .circle {
   position: relative;
   background-color: white;
   width: 120px;
   height: 120px;
   border-radius: 100px;
+}
+
+.bigCircle {
+  position: relative;
+  background-color: white;
+  width: 320px;
+  height: 320px;
+  border-radius: 100px;
+}
+
+.bigGrade {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  background-color: #f93822;
+  border-radius: 100px;
+  right: 0;
+  color: #fff;
+  text-align: center;
+  font-size: 50px;
+  font-family: sofia-pro-soft;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
 }

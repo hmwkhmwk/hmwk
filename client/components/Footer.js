@@ -20,10 +20,10 @@ const Footer = () => (
     <div className="footerHalf2">
       <p></p>
       <a href="https://www.linkedin.com/in/fishxy2/">
-        <AiOutlineLinkedin size={25} /> Yunice Xiao | Jr. Software Engineer
+        <AiOutlineLinkedin size={25} /> Yunice Xiao | Software Engineer
       </a>
       <a href="https://www.linkedin.com/in/cecilia-yu-chung-chang/">
-        <AiOutlineLinkedin size={25} /> Cecilia Yu Chung Chang | Jr. Software
+        <AiOutlineLinkedin size={25} /> Cecilia Yu Chung Chang | Software
         Engineer
       </a>
       <a href="https://www.linkedin.com/in/kay-chen-9a9679165/">
@@ -34,6 +34,10 @@ const Footer = () => (
       </a>
       <a href="https://www.linkedin.com/in/victor-lam-chen/">
         <AiOutlineLinkedin size={25} /> Victor Chen | Software Engineer
+      </a>
+      <a href="https://www.linkedin.com/in/kat-chen-907161140//">
+        <AiOutlineLinkedin size={25} /> Kat Chen | Front-End Software Engineer
+        (collaborator)
       </a>
     </div>
   </div>
