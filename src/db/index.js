@@ -15,14 +15,9 @@ const SUBMIT_PATH_PREFIX = "/submit";
 const USE_REDIS = process.env.USE_REDIS === "true";
 
 /* Redis-related config. */
-// https://devcenter.heroku.com/articles/redistogo#using-with-node-js
-let rtg = { port: 7001, hostname: "localhost" };
-if (USE_REDIS) {
-  rtg = require("url").parse(process.env.REDISTOGO_URL);
-  redis.auth(rtg.auth.split(":")[1]);
-}
-const REDIS_PORT = rtg.port || process.env.REDIS_PORT;
-const REDIS_HOST = rtg.hostname || process.env.REDIS_HOST;
+// Won't be used if REDISTOGO_URL is present.
+const REDIS_PORT = process.env.REDIS_PORT;
+const REDIS_HOST = process.env.REDIS_HOST;
 const REDIS_OPTIONS = {};
 const JC_PREFIX = "jc";
 
@@ -111,8 +106,16 @@ class JsonDBAdaptor {
 function newDB() {
   // Redis.
   if (USE_REDIS) {
-    // const redis = new Redis(REDIS_PORT, REDIS_HOST, REDIS_OPTIONS);
-    const client = redis.createClient(REDIS_PORT, REDIS_HOST, REDIS_OPTIONS);
+    let client;
+    // Use Redis to Go if REDISTOGO_URL is present.
+    // https://devcenter.heroku.com/articles/redistogo#using-with-node-js
+    if (process.env.REDISTOGO_URL) {
+      const rtg = require("url").parse(process.env.REDISTOGO_URL);
+      client = redis.createClient(rtg.port, rtg.hostname, REDIS_OPTIONS);
+      client.auth(rtg.auth.split(":")[1]);
+    } else {
+      client = redis.createClient(REDIS_PORT, REDIS_HOST, REDIS_OPTIONS);
+    }
     return new RedisDBAdaptor(client);
   }
 
