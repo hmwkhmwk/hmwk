@@ -14,27 +14,27 @@ function Review() {
         <img
           className="sticker"
           src="./stickers/hmwk_grape.png"
-          alt="Upload Sticker"
+          alt="Sticker"
         />
       </div>
       <div className="prompt">
         <h1> Well done {hash.name}! </h1>
         <h3> You submitted your homework</h3>
       </div>
-      <div className="imagePreview">
-        {/* Here we will post the preview image(s) of the hmwk submission */}
-      </div>
+
+      {/* Here we will post the preview image(s) of the hmwk submission
+      <div className="imagePreview"></div> */}
+
       <Link to="/home">
-        <button
-          type="button"
-          className="buttonCTA"
-          // onClick={() => changeHwmk()}
-        >
+        <button type="button" className="buttonCTA">
           Change it
         </button>
       </Link>
       <Link to="/allHmwks">
-        <div className="cornerButton">See All</div>
+        <button type="button" className="buttonWhite">
+          <img src="./svg/home.svg" alt="Upload icon" />
+          See All Hmwk
+        </button>
       </Link>
     </div>
   );

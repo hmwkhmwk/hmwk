@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import { getHmwkTrackingDataThunk } from "./store/hash";
-import { HeaderAllHmwks, Header, Footer } from "./components";
+import { Header, Footer } from "./components";
 import Routes from "./routes";
 
 const App = () => {

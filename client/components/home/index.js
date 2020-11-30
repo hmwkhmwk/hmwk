@@ -96,18 +96,17 @@ function Home() {
           </div>
           <div className="sticker">
             <img
-              className="sticker"
               src="./stickers/hmwk_success.png"
               alt="Upload Sticker"
-            />{" "}
+              height="150px"
+            />
           </div>
 
           {hash.file === "" ? (
             <div>
               <div className="greeting">
                 <h2>
-                  {" "}
-                  Hi {hash.studentName}, are you ready to submit your homework?{" "}
+                  Hi {hash.studentName}, are you ready to submit your homework?
                 </h2>
               </div>
               <button
@@ -115,14 +114,13 @@ function Home() {
                 className="submitButton"
                 onClick={() => upload()}
               >
-                Upload
+                <img src="./svg/upload.svg" alt="Upload icon" />
               </button>
             </div>
           ) : (
             <div>
               <div className="greeting">
                 <h2>
-                  {" "}
                   Hi {hash.studentName}, do you want to resubmit your homework?{" "}
                 </h2>
               </div>
@@ -131,7 +129,7 @@ function Home() {
                 className="submitButton"
                 onClick={() => upload()}
               >
-                Resubmit
+                <img src="./svg/upload.svg" alt="Upload icon" />
               </button>
             </div>
           )}

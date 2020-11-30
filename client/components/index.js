@@ -7,4 +7,3 @@ export { default as Upload } from "./Upload";
 export { default as Review } from "./Review";
 export { default as AllHmwks } from "./AllHmwks";
 export { default as SingleHmwk } from "./SingleHmwk";
-export { default as HeaderAllHmwks } from "./HeaderAllHmwks";
