@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { withRouter, Route, Switch } from "react-router-dom";
 import { Home, Upload, Review, SingleHmwk, AllHmwks } from "./components";
-import { useSelector, useDispatch } from "react-redux";
 
 /**
  * COMPONENT
