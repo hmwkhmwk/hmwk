@@ -20,6 +20,7 @@ const authorize = (req, res) => {
 
 const callback = async (req, res) => {
   const { code, state } = req.query;
+  console.log(`CLIENT_SECRET=${process.env.CLIENT_SECRET}`);
   const { userId, backToUrl } = jwt.verify(state, process.env.CLIENT_SECRET);
 
   // Get access token
