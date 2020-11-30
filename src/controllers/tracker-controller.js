@@ -3,9 +3,13 @@ const {
   generateSubmissionLink,
   parseToken,
 } = require("../utils/submission-link");
-const { newDB, TRACKER_PATH_PREFIX, SUBMIT_PATH_PREFIX } = require("../db");
+const {
+  newDB,
+  TRACKER_PATH_PREFIX,
+  SUBMIT_PATH_PREFIX,
+  OAUTH_PATH_PREFIX,
+} = require("../db");
 
-// TODO(lrt98802, YuniceXiao): Utilize db to read/write to /tracker and /submit.
 const db = newDB();
 
 // Submission link will look like: "https://hmwkhmwk.herokuapp.com/?token=xxxxxxx"
@@ -38,13 +42,15 @@ async function track(req, res) {
     hmwkCompletionTrackingBoardId,
     hmwkAssignmentsBoardId,
     itemId,
+    userId,
   } = inboundFieldValues;
   console.log(
     `
     Unmarshalled request: studentsBoardId=${studentsBoardId},
     hmwkCompletionTrackingBoardId=${hmwkCompletionTrackingBoardId},
-    hmwkAssignmentsBoardId=${hmwkAssignmentsBoardId}
-    itemId=${itemId}
+    hmwkAssignmentsBoardId=${hmwkAssignmentsBoardId},
+    itemId=${itemId},
+    userId=${userId},
     `
   );
 
@@ -57,12 +63,18 @@ async function track(req, res) {
   }
   await db.push(trackerPath, { done: false });
 
-  const studentInfo = await _getStudentInfo(studentsBoardId);
+  let apiToken = "";
+  if (db.exists(`${OAUTH_PATH_PREFIX}/${userId}`)) {
+    const val = db.getData(`${OAUTH_PATH_PREFIX}/${userId}`);
+    apiToken = val.token;
+  }
+
+  const studentInfo = await _getStudentInfo(studentsBoardId, apiToken);
   console.log(
     `Fetched all students from student Board: ${JSON.stringify(studentInfo)}`
   );
 
-  const hmwkDetails = await HmwkService.getHmwkDetail(itemId);
+  const hmwkDetails = await HmwkService.getHmwkDetail(itemId, apiToken);
   console.log(`Fetched hmwkDetails: ${JSON.stringify(hmwkDetails)}`);
 
   let assignments = [];
@@ -81,7 +93,8 @@ async function track(req, res) {
   const resps = await HmwkService.seedHmwkCompletionTracking(
     hmwkCompletionTrackingBoardId,
     hmwkDetails.hmwkName,
-    assignments
+    assignments,
+    apiToken
   );
 
   // Store unique-link to itemId mapping in /submit.
@@ -92,6 +105,7 @@ async function track(req, res) {
       hmwkCompletionTrackingItemId: hmwkCompletionTrackingItemId,
       hmwkAssignmentsItemId: itemId,
       hmwkCompletionTrackingBoardId: hmwkCompletionTrackingBoardId,
+      userId: userId,
     });
   }
 
@@ -101,8 +115,8 @@ async function track(req, res) {
   return res.status(200).send({});
 }
 
-async function _getStudentInfo(studentsBoardId) {
-  const studentInfo = await HmwkService.getAllStudents(studentsBoardId);
+async function _getStudentInfo(studentsBoardId, token = "") {
+  const studentInfo = await HmwkService.getAllStudents(studentsBoardId, token);
   if (!studentInfo || studentInfo.length == 0) {
     console.log("You have no students on the board");
     return res.status(200).send({});
