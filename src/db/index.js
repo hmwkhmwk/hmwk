@@ -10,6 +10,7 @@ require("dotenv").config();
 const RESEED_PATH_PREFIX = "/reseed";
 const TRACKER_PATH_PREFIX = "/tracker";
 const SUBMIT_PATH_PREFIX = "/submit";
+const OAUTH_PATH_PREFIX = "/oauth";
 
 // Decide between Redis or JsonDB.
 const USE_REDIS = process.env.USE_REDIS === "true";
@@ -97,6 +98,8 @@ class JsonDBAdaptor {
   }
 }
 
+let redisDBSingleton, jsonDBSingleton;
+
 /**
  * Create a new hmwk JsonDB or RedisDBAdaptor, depending on USE_REDIS.
  * @param {string} fileName database filename. Defaults to DB_FILENAME.
@@ -106,29 +109,35 @@ class JsonDBAdaptor {
 function newDB() {
   // Redis.
   if (USE_REDIS) {
-    let client;
-    // Use Redis to Go if REDISTOGO_URL is present.
-    // https://devcenter.heroku.com/articles/redistogo#using-with-node-js
-    if (process.env.REDISTOGO_URL) {
-      const rtg = require("url").parse(process.env.REDISTOGO_URL);
-      client = redis.createClient(rtg.port, rtg.hostname, REDIS_OPTIONS);
-      client.auth(rtg.auth.split(":")[1]);
-    } else {
-      client = redis.createClient(REDIS_PORT, REDIS_HOST, REDIS_OPTIONS);
+    if (redisDBSingleton === undefined) {
+      let client;
+      // Use Redis to Go if REDISTOGO_URL is present.
+      // https://devcenter.heroku.com/articles/redistogo#using-with-node-js
+      if (process.env.REDISTOGO_URL) {
+        const rtg = require("url").parse(process.env.REDISTOGO_URL);
+        client = redis.createClient(rtg.port, rtg.hostname, REDIS_OPTIONS);
+        client.auth(rtg.auth.split(":")[1]);
+      } else {
+        client = redis.createClient(REDIS_PORT, REDIS_HOST, REDIS_OPTIONS);
+      }
+      redisDBSingleton = new RedisDBAdaptor(client);
     }
-    return new RedisDBAdaptor(client);
+    return redisDBSingleton;
   }
 
   // JsonDB.
-  const jsonDB = new JsonDB(
-    new Config(
-      JSON_DB_FILENAME,
-      true /* humanReadable */,
-      true /* saveOnPush */,
-      "/" /* separator */
-    )
-  );
-  return new JsonDBAdaptor(jsonDB);
+  if (jsonDBSingleton === undefined) {
+    const jsonDB = new JsonDB(
+      new Config(
+        JSON_DB_FILENAME,
+        true /* humanReadable */,
+        true /* saveOnPush */,
+        "/" /* separator */
+      )
+    );
+    jsonDBSingleton = new JsonDBAdaptor(jsonDB);
+  }
+  return jsonDBSingleton;
 }
 
 module.exports = {
@@ -136,4 +145,5 @@ module.exports = {
   TRACKER_PATH_PREFIX,
   SUBMIT_PATH_PREFIX,
   RESEED_PATH_PREFIX,
+  OAUTH_PATH_PREFIX,
 };

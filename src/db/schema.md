@@ -24,6 +24,7 @@ The data in the `/reseed` path contains subscription metadata for the reseeding 
 | &#10240;                          | `hmwkAssignmentsId`                  | `hmwk_assignments` board ID for reseeding.         |
 | &#10240;                          | `studentsId`                         | `students` board ID for reseeding.                 |
 | &#10240;                          | `hmwkCompletionTrackingId`           | `hmwk_completion_tracking` board ID for reseeding. |
+| &#10240;                          | `userId`                             | User ID of this request.                           |
 
 ## `/tracker`
 

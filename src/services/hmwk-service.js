@@ -1,11 +1,18 @@
 const axios = require("axios").default;
-const monday = require("monday-sdk-js")();
+const initMondayClient = require("monday-sdk-js");
 
-const API_TOKEN = process.env.API_TOKEN;
-monday.setToken(API_TOKEN);
+const newMondayClient = (token = "") => {
+  if (token === "") {
+    token = process.env.API_TOKEN;
+  }
+  const monday = initMondayClient();
+  monday.setToken(token);
+  return monday;
+};
 
 class HmwkService {
-  static async getAllStudents(studentsBoardId) {
+  static async getAllStudents(studentsBoardId, token = "") {
+    const monday = newMondayClient(token);
     const query = `
       query {
         boards(ids: ${studentsBoardId}) {
@@ -28,7 +35,8 @@ class HmwkService {
   }
 
   // Grab STUDENT NAME for our student API
-  static async getHmwkTrackingData(hmwkCompletionTrackingItemId) {
+  static async getHmwkTrackingData(hmwkCompletionTrackingItemId, token = "") {
+    const monday = newMondayClient(token);
     const query = `
     query {
       items(ids: ${hmwkCompletionTrackingItemId}) {
@@ -141,7 +149,8 @@ class HmwkService {
     return data;
   }
 
-  static async getHmwkDetail(hmwkAssignmentsBoardId) {
+  static async getHmwkDetail(hmwkAssignmentsBoardId, token = "") {
+    const monday = newMondayClient(token);
     const query = `
       query {
         items(ids: ${hmwkAssignmentsBoardId}) {
@@ -169,19 +178,23 @@ class HmwkService {
     return hmwkDetails;
   }
 
-  static async deleteAllHmwkAssignmentsItems(hmwkAssignmentsId) {
-    await HmwkService._deleteAllItems(hmwkAssignmentsId);
+  static async deleteAllHmwkAssignmentsItems(hmwkAssignmentsId, token = "") {
+    await HmwkService._deleteAllItems(hmwkAssignmentsId, token);
   }
 
-  static async deleteAllStudentsItems(studentsId) {
-    await HmwkService._deleteAllItems(studentsId);
+  static async deleteAllStudentsItems(studentsId, token = "") {
+    await HmwkService._deleteAllItems(studentsId, token);
   }
 
-  static async deleteAllHmwkCompletionTrackingItems(hmwkCompletionTrackingId) {
-    await HmwkService._deleteAllItems(hmwkCompletionTrackingId);
+  static async deleteAllHmwkCompletionTrackingItems(
+    hmwkCompletionTrackingId,
+    token = ""
+  ) {
+    await HmwkService._deleteAllItems(hmwkCompletionTrackingId, token);
   }
 
-  static async _deleteAllItems(boardId) {
+  static async _deleteAllItems(boardId, token = "") {
+    const monday = newMondayClient(token);
     // Get all groups in hmwk_assignments.
     const query = `
       query {
@@ -213,11 +226,11 @@ class HmwkService {
     }
   }
 
-  // TODO(victor): Add file upload support.
   static async seedHmwkAssignments(
     hmwkAssignmentsId,
     assignmentsGroup,
-    assignments
+    assignments,
+    token = ""
   ) {
     const f = (assignment) => {
       return {
@@ -232,11 +245,13 @@ class HmwkService {
       hmwkAssignmentsId,
       assignmentsGroup,
       assignments,
-      f
+      f,
+      token
     );
   }
 
-  static async seedStudents(studentsId, studentsGroup, students) {
+  static async seedStudents(studentsId, studentsGroup, students, token = "") {
+    const monday = newMondayClient(token);
     const f = (student) => {
       return {
         // Contrary to the API docs, you NEED to supply text.
@@ -246,14 +261,20 @@ class HmwkService {
         },
       };
     };
-    return await HmwkService._seedBoard(studentsId, studentsGroup, students, f);
+    return await HmwkService._seedBoard(
+      studentsId,
+      studentsGroup,
+      students,
+      f,
+      token
+    );
   }
 
-  // TODO(victor): Add file upload support.
   static async seedHmwkCompletionTracking(
     hmwkCompletionTrackingId,
     assignmentsTrackerGroup,
-    assignmentsTracker
+    assignmentsTracker,
+    token = ""
   ) {
     const f = (at) => {
       return {
@@ -271,11 +292,19 @@ class HmwkService {
       hmwkCompletionTrackingId,
       assignmentsTrackerGroup,
       assignmentsTracker,
-      f
+      f,
+      token
     );
   }
 
-  static async _seedBoard(boardId, groupName, items, columnValueFunc) {
+  static async _seedBoard(
+    boardId,
+    groupName,
+    items,
+    columnValueFunc,
+    token = ""
+  ) {
+    const monday = newMondayClient(token);
     // Create a group.
     const mutation = `
       mutation {
@@ -320,7 +349,8 @@ class HmwkService {
     return resps;
   }
 
-  static async clearFileColumn(boardId, itemId, columnId) {
+  static async clearFileColumn(boardId, itemId, columnId, token) {
+    const monday = newMondayClient(token);
     console.log(
       `Clearing the file column - boardId: ${boardId}, itemId: ${itemId}`
     );
@@ -348,8 +378,12 @@ class HmwkService {
     pdfName,
     content,
     itemId,
-    hmwkCompletionTrackingBoardId
+    hmwkCompletionTrackingBoardId,
+    token = ""
   ) {
+    if (token === "") {
+      token = process.env.API_TOKEN;
+    }
     // Hard-coded column ID for homework file column.
     const columnId = "files";
     await HmwkService.clearFileColumn(
@@ -360,7 +394,7 @@ class HmwkService {
     const query = `mutation ($file: File!) { add_file_to_column (item_id: ${itemId}, column_id: "${columnId}", file: $file) { id } }`;
     const boundary = "xxxxxxxxxx";
     const headers = {
-      Authorization: API_TOKEN,
+      Authorization: token,
       "Content-Type": `multipart/form-data; boundary=${boundary}`,
     };
 
