@@ -10,7 +10,7 @@ function Header() {
         <img className="logo" src="svg/hmwk_wide_logo.svg" alt="hmwk logo" />
         <div className="headerTitle">
           <h1>
-            <Link to="/home">Mr. Flitwick's Enchantments Class</Link>
+            <Link to="/home">Ms. Stacy's Art Class</Link>
           </h1>
         </div>
       </div>
