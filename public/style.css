@@ -218,25 +218,3 @@ form div {
   height: 120px;
   border-radius: 100px;
 }
-
-.bigCircle {
-  position: relative;
-  background-color: white;
-  width: 320px;
-  height: 320px;
-  border-radius: 100px;
-}
-
-.bigGrade {
-  position: absolute;
-  width: 90px;
-  height: 90px;
-  background-color: #f93822;
-  border-radius: 100px;
-  right: 0;
-  color: #fff;
-  text-align: center;
-  font-size: 50px;
-  font-family: sofia-pro-soft;
-  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
-}
