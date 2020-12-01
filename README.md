@@ -289,7 +289,7 @@ The app will now be redirected to http://localhost:5000/
 
 # 🌟 The Team 🌟
 
-## Software Engineers (fullstack):
+## Software Engineers (Fullstack):
 
 🧑🏻‍💻 [Victor Chen](https://www.linkedin.com/in/victor-lam-chen)
 
@@ -302,3 +302,8 @@ The app will now be redirected to http://localhost:5000/
 ## UX-UI Designer:
 
 👩🏻‍💻 [Kay Chen](https://www.linkedin.com/in/kay-chen-9a9679165)
+
+## Special Thanks:
+
+- [Kat Chen](https://www.linkedin.com/in/kat-chen-907161140/): Front-End consultant
+- 👩🏻‍🏫🧑🏻‍🏫👩🏼‍🏫🧑🏿‍🏫👩🏽‍🏫 The amazing teachers, educators, and parents that provided us insights and helped us shape our app.
