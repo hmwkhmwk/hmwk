@@ -4,6 +4,9 @@
 
 As part of the monday.com Apps Marketplace challenge, we've created "hmwk", an app that lets your child scan their homework and "turn it in" to their teacher, right from their phone! Because hmwk integrates with monday.com, teachers can use the monday.com platform to receive homeworks in a central location and keep track of each student's development and learning.
 
+Check out our video submission and demo:
+<a href="https://www.youtube.com/watch?v=eEbhDxlhXw8"><img src="public/screenshots/SS_video.png"></img></a>
+
 ---
 
 # Install
@@ -12,13 +15,11 @@ Add hmwk to monday.com!
 
 <a href="https://auth.monday.com/oauth2/authorize?client_id=2b8295571169c8715ed9ad765153a96f&response_type=install"> <img alt="Add to monday.com" height="42" src="https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/remote_mondaycom_static/uploads/Tal/4b5d9548-0598-436e-a5b6-9bc5f29ee1d9_Group12441.png" /> </a>
 
-Check out our video submission and demo [here](https://youtube.com)!
-
 Once setup, your students will be emailed a personalized link to https://hmwkhmwk.herokuapp.com to submit and view their homework.
 
 ---
 
-# hmwk
+# About hmwk
 
 **hmwk** helps teachers distribute, collect and track their students' homework assignments. We integrate with monday.com through board templates and smart recipes logic that neatly manage the process.
 
