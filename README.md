@@ -2,18 +2,21 @@
   <img src="./public/hmwk_logo.png" alt="hmwk's logo"/>
 </p>
 
-
 As part of the monday.com Apps Marketplace challenge, we've created "hmwk", an app that lets your child scan their homework and "turn it in" to their teacher, right from their phone! Because hmwk integrates with monday.com, teachers can use the monday.com platform to receive homeworks in a central location and keep track of each student's development and learning.
 
-## Install
+---
+
+# Install
 
 Add hmwk to monday.com!
 
 <a href="https://auth.monday.com/oauth2/authorize?client_id=2b8295571169c8715ed9ad765153a96f&response_type=install"> <img alt="Add to monday.com" height="42" src="https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/remote_mondaycom_static/uploads/Tal/4b5d9548-0598-436e-a5b6-9bc5f29ee1d9_Group12441.png" /> </a>
 
-TODO: Add video onboarding link here.
+Check out our video submission and demo [here](https://youtube.com)!
 
 Once setup, your students will be emailed a personalized link to https://hmwkhmwk.herokuapp.com to submit and view their homework.
+
+---
 
 # hmwk
 
@@ -25,12 +28,12 @@ If you are a developer and want to try our app out, please check out the Dev Gui
 
 If you're interested in learning more about our app, feel free to read our Hackathon Submission entry! 😊
 
-Check out our video submission [here]().
-
 <p align="center">
   <img src="public/screenshots/SS_allHmwk.jpg" alt="Student can also track all their grades" height="400">
 </p>
 <p align="center"> Screenshot of our student app interface</p>
+
+---
 
 # 📖 Hackathon Submission 📖
 
@@ -198,6 +201,8 @@ We had a lot of great features planned for hmwk, but unfortunately had to cut th
 
 </details>
 
+---
+
 # 💻 Dev Guide 💻
 
 <details><summary>Click to Expand</summary>
@@ -282,18 +287,20 @@ The app will now be redirected to http://localhost:5000/
 
 </details>
 
+---
+
 # 🌟 The Team 🌟
 
 ## Software Engineers (fullstack):
 
-🧑🏻‍💻[Victor Chen](https://www.linkedin.com/in/victor-lam-chen)
+🧑🏻‍💻 [Victor Chen](https://www.linkedin.com/in/victor-lam-chen)
 
-👩🏻‍💻[Cecilia Yu Chung Chang](https://www.linkedin.com/in/cecilia-yu-chung-chang)
+👩🏻‍💻 [Cecilia Yu Chung Chang](https://www.linkedin.com/in/cecilia-yu-chung-chang)
 
-🧑🏻‍💻[RT Lin](https://www.linkedin.com/in/rt-lin)
+🧑🏻‍💻 [RT Lin](https://www.linkedin.com/in/rt-lin)
 
-👩🏻‍💻[Yunice Xiao](https://www.linkedin.com/in/fishxy2)
+👩🏻‍💻 [Yunice Xiao](https://www.linkedin.com/in/fishxy2)
 
 ## UX-UI Designer:
 
-👩🏻‍💻[Kay Chen](https://www.linkedin.com/in/kay-chen-9a9679165)
+👩🏻‍💻 [Kay Chen](https://www.linkedin.com/in/kay-chen-9a9679165)
